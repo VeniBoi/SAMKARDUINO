@@ -6,8 +6,31 @@ using TechTweaking.Bluetooth;
 
 public class BasicDemo : MonoBehaviour {
 
+	public Text Sensori0;
+	public Text Sensori1;
+	public Text Sensori2;
+	public Text Sensori3;
+	public Text Sensori4;
+	public Text Sensori5;
+	public Text Sensori6;
+	public Text Sensori7;
+	public Text Sensori8;
+
+	public int S0;
+	public int S1;
+	public int S2;
+	public int S3;
+	public int S4;
+	public int S5;
+	public int S6;
+	public int S7;
+	public int S8;
+
+
+
 	private  BluetoothDevice device;
 	public Text statusText;
+	public string arduinoData;
 	// Use this for initialization
 	void Awake () {
 		
@@ -30,8 +53,8 @@ public class BasicDemo : MonoBehaviour {
 		 */
 
 
-		device.Name = "HC-05";
-		//device.MacAddress = "XX:XX:XX:XX:XX:XX";
+		device.Name = "HC-06";
+		//device.MacAddress = "30:14:08:13:11:00";
 
 		/*
 		 *  Note: The library will fill the properties device.Name and device.MacAdress with the right data after succesfully connecting.
@@ -98,9 +121,71 @@ public class BasicDemo : MonoBehaviour {
 				 */
 				string content = System.Text.ASCIIEncoding.ASCII.GetString (msg);
 
-				statusText.text = "MSG : " + content;
+				statusText.text = content;
+				arduinoData = content;
 
-			} 
+				string str = arduinoData;               //Asetetaan muuttujan str arvo (Eli laitetaan sille arvoksi se mitä arduino lähettää)
+				string[] minmax = str.Split(',');   //Otetaan kahden arvon välistä pilkku pois
+				int A0 = int.Parse(minmax[0]);      //Muutetaan saatu stringi integeriksi
+				int A1 = int.Parse(minmax[1]);      //Sama tässä
+				int A2 = int.Parse(minmax[2]);
+				int A3 = int.Parse(minmax[3]);
+				int A4 = int.Parse(minmax[4]);
+				int A5 = int.Parse(minmax[5]);
+				int A6 = int.Parse(minmax[6]);
+				int A7 = int.Parse(minmax[7]);
+				int A8 = int.Parse(minmax[8]);
+
+				S0 = A0;  //Asetetaan näille muuttujille arraysta saadut arvot. (Helpompi käsitellä) vvv
+				S1 = A1;
+				S2 = A2;
+				S3 = A3;
+				S4 = A4;
+				S5 = A5;
+				S6 = A6;
+				S7 = A7;
+				S8 = A8;
+
+				setString();
+				
+			}		
+			
 		}
 	}
+
+	void setString()
+	{
+		Sensori0.text = "Sensori0: " + S0.ToString();
+		Sensori1.text = "Sensori1: " + S1.ToString();
+		Sensori2.text = "Sensori2: " + S2.ToString();
+		Sensori3.text = "Sensori4: " + S3.ToString();
+		Sensori4.text = "Sensori5: " + S4.ToString();
+		Sensori5.text = "Sensori6: " + S5.ToString();
+		Sensori6.text = "Sensori7: " + S6.ToString();
+		Sensori7.text = "Sensori8: " + S7.ToString();
+		Sensori8.text = "Sensori9: " + S8.ToString();
+	}
 }
+
+//VVVV------------------------------TÄLLÄ SAADAAN AUTOMAATTINEN YHTEYS---------------------------------VVVV
+
+/*
+ * void Awake ()
+	{
+		device = new BluetoothDevice ();
+
+		if (BluetoothAdapter.isBluetoothEnabled ()) {
+			connect ();
+		} else {
+
+			//BluetoothAdapter.enableBluetooth(); //you can by this force enabling Bluetooth without asking the user
+			statusText.text = "Status : Please enable your Bluetooth";
+
+			BluetoothAdapter.OnBluetoothStateChanged += HandleOnBluetoothStateChanged;
+			BluetoothAdapter.listenToBluetoothState (); // if you want to listen to the following two events  OnBluetoothOFF or OnBluetoothON
+
+			BluetoothAdapter.askEnableBluetooth ();//Ask user to enable Bluetooth
+
+		}
+	}
+	*/

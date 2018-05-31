@@ -71,21 +71,21 @@ Serial.println("  ");
     delay(1000);
 */
 
-    Value0 = map(Value0, 0, 1023, 0, 50);
-    Value1 = map(Value1, 0, 1023, 0, 50);
-    Value2 = map(Value2, 0, 1023, 0, 50);
-    Value3 = map(Value3, 0, 1023, 0, 50);
-    Value4 = map(Value4, 0, 1023, 0, 50);
-    Value5 = map(Value5, 0, 1023, 0, 50);
-    Value6 = map(Value6, 0, 1023, 0, 50);
-    Value7 = map(Value7, 0, 1023, 0, 50);
-    Value8 = map(Value8, 0, 1023, 0, 50);
-/*
-     char buf[25];                                     //Tehdään array nimeltä buf
+    Value0 = map(Value0, 0, 1023, 0, 99);
+    Value1 = map(Value1, 0, 1023, 0, 99);
+    Value2 = map(Value2, 0, 1023, 0, 99);
+    Value3 = map(Value3, 0, 1023, 0, 99);
+    Value4 = map(Value4, 0, 1023, 0, 99);
+    Value5 = map(Value5, 0, 1023, 0, 99);
+    Value6 = map(Value6, 0, 1023, 0, 99);
+    Value7 = map(Value7, 0, 1023, 0, 99);
+    Value8 = map(Value8, 0, 1023, 0, 99);
+
+    char buf[50];                                     //Tehdään array nimeltä buf
    sprintf(buf,"%d%c%d%c%d%c%d%c%d%c%d%c%d%c%d%c%d",Value0,vali,Value1,vali,Value2,vali,Value3,vali,Value4,vali,Value5,vali,Value6,vali,Value7,vali,Value8,vali,Value8);  //Syötetään arvot arrayhin
    Serial.println(buf);                               //Printataan serialiin buf, eli arvot yhtenä litaniana.
    delay(100);
-  */
-Serial.println("testi");
-delay(100);
+  
+
+
 }

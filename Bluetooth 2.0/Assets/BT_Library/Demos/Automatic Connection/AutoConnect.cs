@@ -10,6 +10,7 @@ public class AutoConnect : MonoBehaviour
 
 	private  BluetoothDevice device;
 	public Text statusText;
+	public Text dataArduinolta;
 
 	void Awake ()
 	{
@@ -37,6 +38,14 @@ public class AutoConnect : MonoBehaviour
 		BluetoothAdapter.OnDeviceNotFound += HandleOnDeviceNotFound; //Because connecting using the 'Name' property is just searching, the Plugin might not find it!(only for 'Name').
 	}
 
+	void Update()
+	{
+		
+	}
+	
+		
+	
+
 	private void connect ()
 	{
 
@@ -47,9 +56,9 @@ public class AutoConnect : MonoBehaviour
 		/* The Property device.MacAdress doesn't require pairing. 
 		 * Also Mac Adress in this library is Case sensitive,  all chars must be capital letters
 		 */
-		device.MacAddress = "XX:XX:XX:XX:XX:XX";
+		//device.MacAddress = "98:D3:31:F5:29:55";
 		
-		/* device.Name = "My_Device";
+		 device.Name = "HC-06";/*
 		* 
 		* Trying to identefy a device by its name using the Property device.Name require the remote device to be paired
 		* but you can try to alter the parameter 'allowDiscovery' of the Connect(int attempts, int time, bool allowDiscovery) method.
@@ -119,6 +128,7 @@ public class AutoConnect : MonoBehaviour
 				
 				string content = System.Text.ASCIIEncoding.ASCII.GetString (msg);
 				statusText.text = "MSG : " + content;
+				dataArduinolta.text = content;
 			}
 			yield return null;
 		}
