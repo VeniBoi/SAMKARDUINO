@@ -6,6 +6,8 @@ using TechTweaking.Bluetooth;
 
 public class BasicDemo : MonoBehaviour {
 
+	static public bool onLiitytty;
+
 	public Text Sensori0;
 	public Text Sensori1;
 	public Text Sensori2;
@@ -16,24 +18,50 @@ public class BasicDemo : MonoBehaviour {
 	public Text Sensori7;
 	public Text Sensori8;
 
-	public int S0;
-	public int S1;
-	public int S2;
-	public int S3;
-	public int S4;
-	public int S5;
-	public int S6;
-	public int S7;
-	public int S8;
+	static public int S0;
+	static public int S1;
+	static public int S2;
+	static public int S3;
+	static public int S4;
+	static public int S5;
+	static public int S6;
+	static public int S7;
+	static public int S8;
 
-
+	public GameObject connectButton;
+	public GameObject inputfield;
+	public GameObject inputTeksti;
+	public InputField btNimi;
+	public string btLaite;
 
 	private  BluetoothDevice device;
 	public Text statusText;
+	public Text nimiInput;
 	public string arduinoData;
+
+	static public int mappedValue0;
+	static public int mappedValue1;
+	static public int mappedValue2;
+	static public int mappedValue3;
+	static public int mappedValue4;
+	static public int mappedValue5;
+	static public int mappedValue6;
+	static public int mappedValue7;
+	static public int mappedValue8;
+
+
+
+
+
+
 	// Use this for initialization
 	void Awake () {
-		
+
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;      //ASETETAAN NÄYTTÖ NIIN ETTEI SE SAMMU!
+		onLiitytty = false;                                 //Boolean joka päättää päästetäänkö peliin.
+		nimiInput.enabled = false;
+
+
 		BluetoothAdapter.enableBluetooth();//Force Enabling Bluetooth
 
 
@@ -53,7 +81,7 @@ public class BasicDemo : MonoBehaviour {
 		 */
 
 
-		device.Name = "HC-06";
+		device.Name = btLaite;  //"HC-06";					//Haetaan nimi inputfieldistä. (Modulaarinen t. peter)
 		//device.MacAddress = "30:14:08:13:11:00";
 
 		/*
@@ -73,7 +101,7 @@ public class BasicDemo : MonoBehaviour {
 	}
 	
 	public void connect() {
-		statusText.text = "Status : ...";
+		statusText.text = "Status: attempting to connect...";
 
 		/*
 		 * Notice that there're more than one connect() method, check out the docs to read about them.
@@ -92,6 +120,8 @@ public class BasicDemo : MonoBehaviour {
 		device.close();
 	}
 
+	
+
 	public void sendHello() {
 		if (device != null) {
 			/*
@@ -109,9 +139,14 @@ public class BasicDemo : MonoBehaviour {
 	 * Just to make things simple
 	 */
 	void Update() {
+
+		
+
 		if (device.IsReading) {
 
+			
 			byte [] msg = device.read ();
+			
 
 
 			if (msg != null ) {
@@ -121,7 +156,7 @@ public class BasicDemo : MonoBehaviour {
 				 */
 				string content = System.Text.ASCIIEncoding.ASCII.GetString (msg);
 
-				statusText.text = content;
+				statusText.text = "Connected!";
 				arduinoData = content;
 
 				string str = arduinoData;               //Asetetaan muuttujan str arvo (Eli laitetaan sille arvoksi se mitä arduino lähettää)
@@ -146,6 +181,16 @@ public class BasicDemo : MonoBehaviour {
 				S7 = A7;
 				S8 = A8;
 
+				mappedValue0 = (((S0 - 0) * (255 - 0)) / (99 - 0)) + 0;
+				mappedValue1 = (((S1 - 0) * (255 - 0)) / (99 - 0)) + 0;
+				mappedValue2 = (((S2 - 0) * (255 - 0)) / (99 - 0)) + 0;
+				mappedValue3 = (((S3 - 0) * (255 - 0)) / (99 - 0)) + 0;
+				mappedValue4 = (((S4 - 0) * (255 - 0)) / (99 - 0)) + 0;				//Tämä muuttaa arvon max 99 --> max 255.
+				mappedValue5 = (((S5 - 0) * (255 - 0)) / (99 - 0)) + 0;				//Käytetään muuttamaan väriarvoja.
+				mappedValue6 = (((S6 - 0) * (255 - 0)) / (99 - 0)) + 0;
+				mappedValue7 = (((S7 - 0) * (255 - 0)) / (99 - 0)) + 0;
+				mappedValue8 = (((S8 - 0) * (255 - 0)) / (99 - 0)) + 0;
+
 				setString();
 				
 			}		
@@ -155,17 +200,50 @@ public class BasicDemo : MonoBehaviour {
 
 	void setString()
 	{
+		
 		Sensori0.text = "Sensori0: " + S0.ToString();
 		Sensori1.text = "Sensori1: " + S1.ToString();
 		Sensori2.text = "Sensori2: " + S2.ToString();
-		Sensori3.text = "Sensori4: " + S3.ToString();
-		Sensori4.text = "Sensori5: " + S4.ToString();
-		Sensori5.text = "Sensori6: " + S5.ToString();
-		Sensori6.text = "Sensori7: " + S6.ToString();
-		Sensori7.text = "Sensori8: " + S7.ToString();
-		Sensori8.text = "Sensori9: " + S8.ToString();
+		Sensori3.text = "Sensori3: " + S3.ToString();				//Asettaa editorissa setettujen tekstien arvon. (funktio kutsutaan update funktiossa).
+		Sensori4.text = "Sensori4: " + S4.ToString();
+		Sensori5.text = "Sensori5: " + S5.ToString();
+		Sensori6.text = "Sensori6: " + S6.ToString();
+		Sensori7.text = "Sensori7: " + S7.ToString();
+		Sensori8.text = "Sensori8: " + S8.ToString();
 	}
+
+	public void btHaku()
+	{
+
+		btLaite = btNimi.text;
+		device.Name = btLaite;
+		if (btNimi.text == "")
+		{
+			nimiInput.enabled = true;
+			nimiInput.text = "Name the device you are trying to connect to!";
+		}
+		else
+		{
+			connect();                                                  //Haetaan inputfieldin teksti ja asetetaan se muuttujaan. Myöhemmin sillä nimellä liitytään									//bluetooth laitteeseen.
+			inputfield.SetActive(false);
+			connectButton.SetActive(false);                             //Asetetaan myös inputfield ja napit piiloon.
+			onLiitytty = true;
+			nimiInput.enabled = false;
+			byte[] msg = device.read();
+			if(msg == null)
+			{
+				Debug.Log("Ei toimi");
+			}
+		}
+
+		
+	}
+
+	
 }
+
+
+
 
 //VVVV------------------------------TÄLLÄ SAADAAN AUTOMAATTINEN YHTEYS---------------------------------VVVV
 
