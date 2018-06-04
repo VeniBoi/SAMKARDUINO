@@ -7,6 +7,9 @@ using TechTweaking.Bluetooth;
 
 public class BtDiscovery : MonoBehaviour
 {
+	static public string makki;
+	static public string connectInfo;
+
 	public Button deviceButton;
 	public Text DeviceText;
 	Dictionary<string,DeviceData> MacAddressToBluetoothDevice;
@@ -59,6 +62,7 @@ public class BtDiscovery : MonoBehaviour
 		if (MacAddressToBluetoothDevice.Count == 1) {
 			deviceButton.interactable = true;
 			deviceButton.name = MacAdress;
+			
 		} else {
 			GameObject newButton = GameObject.Instantiate (deviceButton.gameObject) as GameObject;
 			newButton.transform.SetParent (deviceButton.transform.parent, false);
@@ -77,7 +81,10 @@ public class BtDiscovery : MonoBehaviour
 	public void OnButtonClicked ()
 	{
 		string MAC = EventSystem.current.currentSelectedGameObject.name;
-		DeviceText.text = MacAddressToBluetoothDevice [MAC].device.Name;
+		DeviceText.text = MAC;  //MacAddressToBluetoothDevice [MAC].device.Name;
+		makki = MAC.ToString();
+		this.GetComponent<BasicDemo>().btHaku();
+		
 
 	}
 
@@ -88,7 +95,8 @@ public class BtDiscovery : MonoBehaviour
 		//BluetoothAdapter.cancelDiscovery();
 		//BluetoothAdapter.startDiscovery ();
 		//OR we can use refreshDiscovery(), which will just cancel then start Discovery again.
-		BluetoothAdapter.refreshDiscovery ();
+		//BluetoothAdapter.refreshDiscovery ();
+		StartCoroutine(Haku());
 
 	}
 
@@ -96,5 +104,10 @@ public class BtDiscovery : MonoBehaviour
 	{
 		BluetoothAdapter.OnDeviceDiscovered -= HandleOnDeviceDiscovered;
 	}
-
+	IEnumerator Haku()
+	{
+		BluetoothAdapter.startDiscovery();
+		yield return new WaitForSeconds(7f);
+		BluetoothAdapter.cancelDiscovery();
+	}
 }

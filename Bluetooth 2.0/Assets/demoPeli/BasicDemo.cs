@@ -38,6 +38,8 @@ public class BasicDemo : MonoBehaviour {
 	public Text statusText;
 	public Text nimiInput;
 	public string arduinoData;
+	static public string publicMAC;
+	public Text makki2;
 
 	static public int mappedValue0;
 	static public int mappedValue1;
@@ -49,7 +51,7 @@ public class BasicDemo : MonoBehaviour {
 	static public int mappedValue7;
 	static public int mappedValue8;
 
-
+	public bool onYhteys;
 
 
 
@@ -57,6 +59,7 @@ public class BasicDemo : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
+		onYhteys = false;
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;      //ASETETAAN NÄYTTÖ NIIN ETTEI SE SAMMU!
 		onLiitytty = false;                                 //Boolean joka päättää päästetäänkö peliin.
 		nimiInput.enabled = false;
@@ -81,8 +84,8 @@ public class BasicDemo : MonoBehaviour {
 		 */
 
 
-		device.Name = btLaite;  //"HC-06";					//Haetaan nimi inputfieldistä. (Modulaarinen t. peter)
-		//device.MacAddress = "30:14:08:13:11:00";
+		//device.Name = BtDiscovery.connectInfo;  //"HC-06";					//Haetaan nimi inputfieldistä. (Modulaarinen t. peter)
+		//device.MacAddress = "98:D3:31:F5:29:55"; //"\"" + publicMAC + "\"";
 
 		/*
 		 *  Note: The library will fill the properties device.Name and device.MacAdress with the right data after succesfully connecting.
@@ -101,6 +104,8 @@ public class BasicDemo : MonoBehaviour {
 	}
 	
 	public void connect() {
+		
+		
 		statusText.text = "Status: attempting to connect...";
 
 		/*
@@ -156,6 +161,7 @@ public class BasicDemo : MonoBehaviour {
 				 */
 				string content = System.Text.ASCIIEncoding.ASCII.GetString (msg);
 
+				onYhteys = true;
 				statusText.text = "Connected!";
 				arduinoData = content;
 
@@ -214,32 +220,29 @@ public class BasicDemo : MonoBehaviour {
 
 	public void btHaku()
 	{
-
-		btLaite = btNimi.text;
-		device.Name = btLaite;
-		if (btNimi.text == "")
-		{
-			nimiInput.enabled = true;
-			nimiInput.text = "Name the device you are trying to connect to!";
-		}
-		else
-		{
-			connect();                                                  //Haetaan inputfieldin teksti ja asetetaan se muuttujaan. Myöhemmin sillä nimellä liitytään									//bluetooth laitteeseen.
-			inputfield.SetActive(false);
-			connectButton.SetActive(false);                             //Asetetaan myös inputfield ja napit piiloon.
-			onLiitytty = true;
-			nimiInput.enabled = false;
-			byte[] msg = device.read();
-			if(msg == null)
-			{
-				Debug.Log("Ei toimi");
-			}
-		}
-
+		
+		StartCoroutine(Yhdistä());
 		
 	}
 
-	
+	IEnumerator Yhdistä()
+	{
+		publicMAC = BtDiscovery.makki;
+		device.MacAddress = publicMAC;
+		yield return new WaitForSeconds(0.5f);
+		connect();                                                  //Haetaan inputfieldin teksti ja asetetaan se muuttujaan. Myöhemmin sillä nimellä liitytään									//bluetooth laitteeseen.
+		inputfield.SetActive(false);
+		connectButton.SetActive(false);                             //Asetetaan myös inputfield ja napit piiloon.
+		onLiitytty = true;
+		nimiInput.enabled = false;
+		//byte[] msg = device.read();
+		yield return new WaitForSeconds(5f);
+		if (onYhteys == false)
+		{
+			makki2.text = "Yritetään uutta yhdistystä";
+			connect();
+		}
+	}
 }
 
 
