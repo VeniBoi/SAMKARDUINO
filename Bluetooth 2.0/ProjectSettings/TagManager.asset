@@ -42,3 +42,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: "Edess\xE4"
+    uniqueID: 3453000361
+    locked: 0

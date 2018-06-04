@@ -52,7 +52,7 @@ public class BtDiscovery : MonoBehaviour
 			devData.RSSI = rssi;
 		}
 		Text txt = devData.button.GetComponentInChildren<Text> ();
-		txt.text = dev.MacAddress + '\n' + dev.Name + '\n' + "RSSI : " + rssi;
+		txt.text = dev.Name;//dev.MacAddress + '\n' + dev.Name + '\n' + "RSSI : " + rssi;
 
 		txt.color = new Color (Random.Range (0.0f, 1.0f), Random.Range (0.0f, 1.0f), Random.Range (0.0f, 1.0f));
 	}
@@ -73,7 +73,7 @@ public class BtDiscovery : MonoBehaviour
 
 		}
 
-		deviceButton.GetComponentInChildren<Text> ().text = MacAdress + '\n' + name + '\n' + "RSSI : " + RSSI;
+		deviceButton.GetComponentInChildren<Text>().text = MacAdress + '\n' + name + '\n' + "RSSI : " + RSSI;
 
 		return deviceButton;
 	}
