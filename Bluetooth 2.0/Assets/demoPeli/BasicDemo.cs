@@ -218,6 +218,12 @@ public class BasicDemo : MonoBehaviour {
 		Sensori8.text = "Sensori8: " + S8.ToString();
 	}
 
+	public void Sammutus()
+	{
+		Application.Quit();
+	}
+	
+
 	public void btHaku()
 	{
 		
