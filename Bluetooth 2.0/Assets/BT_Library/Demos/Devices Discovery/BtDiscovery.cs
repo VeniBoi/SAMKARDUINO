@@ -9,6 +9,8 @@ public class BtDiscovery : MonoBehaviour
 {
 	static public string makki;
 	static public string connectInfo;
+	public GameObject refreshKuva;
+	public bool pyorii;
 
 	public Button deviceButton;
 	public Text DeviceText;
@@ -30,11 +32,25 @@ public class BtDiscovery : MonoBehaviour
 
 	void Start ()
 	{
+		pyorii = false;
 		BluetoothAdapter.askEnableBluetooth ();
 
 		MacAddressToBluetoothDevice = new Dictionary<string,DeviceData> ();
 		BluetoothAdapter.OnDeviceDiscovered += HandleOnDeviceDiscovered;
 
+	}
+
+	void Update()
+	{
+		if (pyorii == true)
+		{
+			refreshKuva.transform.Rotate(Vector3.forward * Time.deltaTime * 150, Space.World);
+		}
+
+		if (pyorii == false)
+		{
+			refreshKuva.transform.Rotate(Vector3.forward * Time.deltaTime * 0, Space.World);
+		}
 	}
 
 	void HandleOnDeviceDiscovered (BluetoothDevice dev, short rssi)
@@ -54,7 +70,7 @@ public class BtDiscovery : MonoBehaviour
 		Text txt = devData.button.GetComponentInChildren<Text> ();
 		txt.text = dev.Name;//dev.MacAddress + '\n' + dev.Name + '\n' + "RSSI : " + rssi;
 
-		txt.color = new Color (Random.Range (0.0f, 1.0f), Random.Range (0.0f, 1.0f), Random.Range (0.0f, 1.0f));
+		txt.color = new Color (Random.Range (1.0f, 1.0f), Random.Range (1.0f, 1.0f), Random.Range (1.0f, 1.0f));
 	}
 
 	public Button addButton (string name, string MacAdress, string RSSI)
@@ -81,10 +97,12 @@ public class BtDiscovery : MonoBehaviour
 	public void OnButtonClicked ()
 	{
 		string MAC = EventSystem.current.currentSelectedGameObject.name;
-		DeviceText.text = MAC;  //MacAddressToBluetoothDevice [MAC].device.Name;
+		  
 		makki = MAC.ToString();
-		this.GetComponent<BasicDemo>().btHaku();
-		
+		DeviceText.text = makki;
+		//this.GetComponent<BasicDemo>().btHaku2();
+		StartCoroutine(demoScript());
+
 
 	}
 
@@ -106,8 +124,16 @@ public class BtDiscovery : MonoBehaviour
 	}
 	IEnumerator Haku()
 	{
-		BluetoothAdapter.startDiscovery();
-		yield return new WaitForSeconds(7f);
-		BluetoothAdapter.cancelDiscovery();
+		BluetoothAdapter.refreshDiscovery();
+		pyorii = true;
+		yield return new WaitForSeconds(25f);
+		pyorii = false;
+		
+	}
+
+	IEnumerator demoScript()
+	{
+		yield return new WaitForSeconds(0.5f);
+		this.GetComponent<BasicDemo>().btHaku2();
 	}
 }

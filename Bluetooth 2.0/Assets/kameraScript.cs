@@ -12,29 +12,49 @@ public class kameraScript : MonoBehaviour
 	public Transform targetBack;
 	public GameObject canvas;
 	public GameObject laskuri;
-	public GameObject aika;
-	public GameObject restart;
-	public GameObject input;
-	public GameObject backbtn;
-	public GameObject connectFirst;
-	
+	public GameObject Paneeli;
+	public GameObject pelaaja;
+	public GameObject Paneeli2;
+
+
+	public Transform player;
+	public Vector3 offset;
+
+	public bool playPainettu;
+	public bool kameraKohdalla;
+
 	
 
 
 	// Use this for initialization
 	void Start()
 	{
+		Paneeli2.SetActive(false);
+		kameraKohdalla = false;
+		playPainettu = false;
 		laskuri.SetActive(false);
-		aika.SetActive(false);
-		restart.SetActive(false);
-		backbtn.SetActive(false);
-		connectFirst.SetActive(false);
+		
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 
+		if (kameraKohdalla == true)
+		{
+			transform.position = player.position + offset;
+		}
+
+		if (BasicDemo.S0 == 0 && BasicDemo.S1 == 0 && BasicDemo.S2 == 0 && BasicDemo.S3 == 0 && BasicDemo.S4 == 0 && BasicDemo.S5 == 0 && BasicDemo.S6 == 0 && BasicDemo.S7 == 0 && BasicDemo.S8 == 0)
+		{
+			hyppyScript.pelaajaValmis = true;
+		}
+
+			if (hyppyScript.pelaajaValmis == true)
+		{
+			Paneeli2.SetActive(false);
+			GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().isKinematic = false;
+		}
 	}
 
 	public void sammutus()
@@ -42,40 +62,20 @@ public class kameraScript : MonoBehaviour
 		Application.Quit();
 	}
 
-	public void Back()
-	{
-		
-		laskuri.SetActive(false);
-		aika.SetActive(false);
-		backbtn.SetActive(false);
-		restart.SetActive(false);
-		StartCoroutine(TransitionBack());
-		pelaajaScript.palkki1.GetComponent<poleColor>().varitakas();
-		pelaajaScript.palkki2.GetComponent<poleColor>().varitakas();
-		pelaajaScript.palkki3.GetComponent<poleColor>().varitakas();
-		pelaajaScript.palkki4.GetComponent<poleColor>().varitakas();
-
-	}
 
 	public void liikutus()
 	{
-		if (BasicDemo.onLiitytty == true) {
-			canvas.SetActive(false);
-			StartCoroutine(valmis());
-			backbtn.SetActive(true);
-			StartCoroutine(Transition());
-			pelaajaScript.osumat = 0;
-			pelaajaScript.gameTimer = 0;
-			connectFirst.SetActive(false);
-		}
-		else
+		playPainettu = true;
+		Paneeli.SetActive(false);
+		if (playPainettu ==  true)
 		{
-			connectFirst.SetActive(true);
+			StartCoroutine(Transition());
+
 		}
 	}
 
 
-	public void liikutusAnalyysi()
+	/*public void liikutusAnalyysi()
 	{
 
 		if (BasicDemo.onLiitytty ==  true)
@@ -92,6 +92,8 @@ public class kameraScript : MonoBehaviour
 		}
 	}
 
+	*/
+
 	IEnumerator Transition()
 	{
 		float t = 0.0f;
@@ -103,13 +105,14 @@ public class kameraScript : MonoBehaviour
 
 			transform.position = Vector3.Lerp(startingPos, target.position, t);
 
-
+			kameraKohdalla = true;
+			Paneeli2.SetActive(true);
 			
 			yield return 0;
 		}
 	}
 
-	IEnumerator TransitionAnalyysi()
+	/*IEnumerator TransitionAnalyysi()
 	{
 		float t = 0.0f;
 		Vector3 startingPos = transform.position;
@@ -125,6 +128,9 @@ public class kameraScript : MonoBehaviour
 			yield return 0;
 		}
 	}
+
+	*/
+
 
 	IEnumerator TransitionBack()
 	{
@@ -151,9 +157,9 @@ public class kameraScript : MonoBehaviour
 	{
 
 		yield return new WaitForSeconds(0.7f);
-		aika.SetActive(true);
+
 		laskuri.SetActive(true);
-		restart.SetActive(true);
+		
 		pelaajaScript.peliAlkanut = true;
 
 	}

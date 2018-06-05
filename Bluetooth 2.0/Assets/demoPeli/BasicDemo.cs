@@ -28,11 +28,8 @@ public class BasicDemo : MonoBehaviour {
 	static public int S7;
 	static public int S8;
 
-	public GameObject connectButton;
-	public GameObject inputfield;
-	public GameObject inputTeksti;
-	public InputField btNimi;
-	public string btLaite;
+	
+	
 
 	private  BluetoothDevice device;
 	public Text statusText;
@@ -53,16 +50,17 @@ public class BasicDemo : MonoBehaviour {
 
 	public bool onYhteys;
 
+	public Text yhdistetaan;
+
 
 
 
 	// Use this for initialization
 	void Awake () {
 
-		onYhteys = false;
+		
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;      //ASETETAAN NÄYTTÖ NIIN ETTEI SE SAMMU!
-		onLiitytty = false;                                 //Boolean joka päättää päästetäänkö peliin.
-		nimiInput.enabled = false;
+		
 
 
 		BluetoothAdapter.enableBluetooth();//Force Enabling Bluetooth
@@ -84,8 +82,9 @@ public class BasicDemo : MonoBehaviour {
 		 */
 
 
-		//device.Name = BtDiscovery.connectInfo;  //"HC-06";					//Haetaan nimi inputfieldistä. (Modulaarinen t. peter)
-		//device.MacAddress = "98:D3:31:F5:29:55"; //"\"" + publicMAC + "\"";
+
+		//device.Name = "MATTIHIRVONEN";					//Haetaan nimi inputfieldistä. 
+		//device.MacAddress = "98:D3:31:F5:29:55";
 
 		/*
 		 *  Note: The library will fill the properties device.Name and device.MacAdress with the right data after succesfully connecting.
@@ -102,10 +101,10 @@ public class BasicDemo : MonoBehaviour {
 		 * Check out getUUIDs(), if you don't know what UUID to use.
 		 */
 	}
-	
+
 	public void connect() {
-		
-		
+
+
 		statusText.text = "Status: attempting to connect...";
 
 		/*
@@ -145,8 +144,8 @@ public class BasicDemo : MonoBehaviour {
 	 */
 	void Update() {
 
+		//device.MacAddress = "98:D3:31:F5:29:55";
 		
-
 		if (device.IsReading) {
 
 			
@@ -162,7 +161,7 @@ public class BasicDemo : MonoBehaviour {
 				string content = System.Text.ASCIIEncoding.ASCII.GetString (msg);
 
 				onYhteys = true;
-				statusText.text = "Connected!";
+				statusText.text = "Status: Connected!";
 				arduinoData = content;
 
 				string str = arduinoData;               //Asetetaan muuttujan str arvo (Eli laitetaan sille arvoksi se mitä arduino lähettää)
@@ -224,31 +223,21 @@ public class BasicDemo : MonoBehaviour {
 	}
 	
 
-	public void btHaku()
+	
+
+	public void btHaku2()
 	{
-		
-		StartCoroutine(Yhdistä());
-		
+		StartCoroutine(odotus());
 	}
 
-	IEnumerator Yhdistä()
+	IEnumerator odotus()
 	{
-		publicMAC = BtDiscovery.makki;
-		device.MacAddress = publicMAC;
+		device.MacAddress = BtDiscovery.makki;
 		yield return new WaitForSeconds(0.5f);
-		connect();                                                  //Haetaan inputfieldin teksti ja asetetaan se muuttujaan. Myöhemmin sillä nimellä liitytään									//bluetooth laitteeseen.
-		inputfield.SetActive(false);
-		connectButton.SetActive(false);                             //Asetetaan myös inputfield ja napit piiloon.
-		onLiitytty = true;
-		nimiInput.enabled = false;
-		//byte[] msg = device.read();
-		yield return new WaitForSeconds(5f);
-		if (onYhteys == false)
-		{
-			makki2.text = "Yritetään uutta yhdistystä";
-			connect();
-		}
+		yhdistetaan.text = device.MacAddress;
+		connect();
 	}
+	
 }
 
 
