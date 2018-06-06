@@ -126,7 +126,7 @@ public class BtDiscovery : MonoBehaviour
 	{
 		BluetoothAdapter.refreshDiscovery();
 		pyorii = true;
-		yield return new WaitForSeconds(25f);
+		yield return new WaitForSeconds(10f);
 		pyorii = false;
 		
 	}

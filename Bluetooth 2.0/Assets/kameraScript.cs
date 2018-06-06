@@ -20,8 +20,9 @@ public class kameraScript : MonoBehaviour
 	public Transform player;
 	public Vector3 offset;
 
-	public bool playPainettu;
+	static public bool playPainettu;
 	public bool kameraKohdalla;
+	static public bool pelaajaPaikalla;
 
 	
 
@@ -29,6 +30,7 @@ public class kameraScript : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		//Paneeli2.GetComponent<Image>().enabled =  false;
 		Paneeli2.SetActive(false);
 		kameraKohdalla = false;
 		playPainettu = false;
@@ -45,16 +47,19 @@ public class kameraScript : MonoBehaviour
 			transform.position = player.position + offset;
 		}
 
-		if (BasicDemo.S0 == 0 && BasicDemo.S1 == 0 && BasicDemo.S2 == 0 && BasicDemo.S3 == 0 && BasicDemo.S4 == 0 && BasicDemo.S5 == 0 && BasicDemo.S6 == 0 && BasicDemo.S7 == 0 && BasicDemo.S8 == 0)
+		/*if (BasicDemo.S0 == 0 && BasicDemo.S1 == 0 && BasicDemo.S2 == 0 && BasicDemo.S3 == 0 && BasicDemo.S4 == 0 && BasicDemo.S5 == 0 && BasicDemo.S6 == 0 && BasicDemo.S7 == 0 && BasicDemo.S8 == 0)
 		{
 			hyppyScript.pelaajaValmis = true;
+			//Paneeli2.SetActive(false);
 		}
 
-			if (hyppyScript.pelaajaValmis == true)
+		*/
+		/*if (hyppyScript.pelaajaValmis == true)
 		{
-			Paneeli2.SetActive(false);
+			
 			GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().isKinematic = false;
 		}
+		*/
 	}
 
 	public void sammutus()
@@ -65,13 +70,17 @@ public class kameraScript : MonoBehaviour
 
 	public void liikutus()
 	{
+		//Paneeli2.GetComponent<Image>().enabled = false;
+		hyppyScript.restartBool = true;
+		Paneeli2.SetActive(true);
 		playPainettu = true;
 		Paneeli.SetActive(false);
 		if (playPainettu ==  true)
 		{
 			StartCoroutine(Transition());
-
+			pelaajaPaikalla = true;
 		}
+		
 	}
 
 
@@ -106,7 +115,7 @@ public class kameraScript : MonoBehaviour
 			transform.position = Vector3.Lerp(startingPos, target.position, t);
 
 			kameraKohdalla = true;
-			Paneeli2.SetActive(true);
+			
 			
 			yield return 0;
 		}
