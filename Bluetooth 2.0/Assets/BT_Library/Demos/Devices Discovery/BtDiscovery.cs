@@ -7,6 +7,12 @@ using TechTweaking.Bluetooth;
 
 public class BtDiscovery : MonoBehaviour
 {
+	public GameObject scrollViewPaneeli;
+	public GameObject searchPaneeli;
+	public Text searchingText;
+	public GameObject connectingPaneeli;
+
+
 	static public string makki;
 	static public string connectInfo;
 	public GameObject refreshKuva;
@@ -14,6 +20,9 @@ public class BtDiscovery : MonoBehaviour
 
 	public Button deviceButton;
 	public Text DeviceText;
+	public Text devText;
+
+
 	Dictionary<string,DeviceData> MacAddressToBluetoothDevice;
 	class DeviceData
 	{
@@ -96,11 +105,13 @@ public class BtDiscovery : MonoBehaviour
 
 	public void OnButtonClicked ()
 	{
+		devText.text = "Hakeeko makkinimen?";
 		string MAC = EventSystem.current.currentSelectedGameObject.name;
-		  
+		devText.text = "MAC toString?";
 		makki = MAC.ToString();
-		DeviceText.text = makki;
+		devText.text = makki;
 		//this.GetComponent<BasicDemo>().btHaku2();
+		devText.text = "Meneekö yhdistykseen saakka?";
 		StartCoroutine(demoScript());
 
 
@@ -114,6 +125,7 @@ public class BtDiscovery : MonoBehaviour
 		//BluetoothAdapter.startDiscovery ();
 		//OR we can use refreshDiscovery(), which will just cancel then start Discovery again.
 		//BluetoothAdapter.refreshDiscovery ();
+		
 		StartCoroutine(Haku());
 
 	}
@@ -125,15 +137,26 @@ public class BtDiscovery : MonoBehaviour
 	IEnumerator Haku()
 	{
 		BluetoothAdapter.refreshDiscovery();
+		searchingText.text = "Searching...";
 		pyorii = true;
 		yield return new WaitForSeconds(10f);
+		searchingText.text = "Search";
 		pyorii = false;
-		
+		//searchPaneeli.SetActive(false);
+		//scrollViewPaneeli.SetActive(true);
+
+
 	}
 
 	IEnumerator demoScript()
 	{
+		devText.text = "Eka kohta meni läpi";
 		yield return new WaitForSeconds(0.5f);
+		devText.text = "Toka kohta meni läpi?";
+		scrollViewPaneeli.SetActive(false);
+		connectingPaneeli.SetActive(true);
 		this.GetComponent<BasicDemo>().btHaku2();
+
+
 	}
 }

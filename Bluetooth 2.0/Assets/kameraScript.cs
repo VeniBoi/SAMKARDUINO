@@ -12,9 +12,8 @@ public class kameraScript : MonoBehaviour
 	public Transform targetBack;
 	public GameObject canvas;
 	public GameObject laskuri;
-	public GameObject Paneeli;
-	public GameObject pelaaja;
-	public GameObject Paneeli2;
+	public GameObject playPaneeli;
+	public GameObject restartButton;
 
 
 	public Transform player;
@@ -31,7 +30,7 @@ public class kameraScript : MonoBehaviour
 	void Start()
 	{
 		//Paneeli2.GetComponent<Image>().enabled =  false;
-		Paneeli2.SetActive(false);
+		
 		kameraKohdalla = false;
 		playPainettu = false;
 		laskuri.SetActive(false);
@@ -72,9 +71,8 @@ public class kameraScript : MonoBehaviour
 	{
 		//Paneeli2.GetComponent<Image>().enabled = false;
 		hyppyScript.restartBool = true;
-		Paneeli2.SetActive(true);
 		playPainettu = true;
-		Paneeli.SetActive(false);
+		
 		if (playPainettu ==  true)
 		{
 			StartCoroutine(Transition());
@@ -83,6 +81,11 @@ public class kameraScript : MonoBehaviour
 		
 	}
 
+	public void paneelit()
+	{
+		playPaneeli.SetActive(false);
+		restartButton.SetActive(true);
+	}
 
 	/*public void liikutusAnalyysi()
 	{

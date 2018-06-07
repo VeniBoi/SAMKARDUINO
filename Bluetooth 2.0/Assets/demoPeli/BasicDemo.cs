@@ -48,11 +48,14 @@ public class BasicDemo : MonoBehaviour {
 	static public int mappedValue7;
 	static public int mappedValue8;
 
+	public GameObject playPaneeli;
+	public GameObject connectPaneeli;
+
 	public bool onYhteys;
 
 	public Text yhdistetaan;
-
-
+	public Image connectImage;
+	
 
 
 	// Use this for initialization
@@ -161,7 +164,8 @@ public class BasicDemo : MonoBehaviour {
 				string content = System.Text.ASCIIEncoding.ASCII.GetString (msg);
 
 				onYhteys = true;
-				statusText.text = "Status: Connected!";
+				yhdistetaan.text = "Connected!";
+				StartCoroutine(playPaneeliNakyy());
 				arduinoData = content;
 
 				string str = arduinoData;               //Asetetaan muuttujan str arvo (Eli laitetaan sille arvoksi se mitä arduino lähettää)
@@ -234,10 +238,16 @@ public class BasicDemo : MonoBehaviour {
 	{
 		device.MacAddress = BtDiscovery.makki;
 		yield return new WaitForSeconds(0.5f);
-		yhdistetaan.text = device.MacAddress;
+		yhdistetaan.text = "Connecting to: " + device.MacAddress;
 		connect();
 	}
 	
+	IEnumerator playPaneeliNakyy()
+	{
+		yield return new WaitForSeconds(2);
+		connectPaneeli.SetActive(false);
+		playPaneeli.SetActive(true);
+	}
 }
 
 
