@@ -18,16 +18,21 @@ public class hyppyScript : MonoBehaviour
 	public bool onHypätty;
 	public bool onLaskeuduttu;
 	static public bool restartBool;
+	public bool hyppyalueLoppu;
+	public bool animaatioLasku;
+	public bool hyppyAlueella;
 
 
 	// Use this for initialization
 	void Start()
 	{
+		hyppyAlueella = false;
+		animaatioLasku = false;
+		hyppyalueLoppu = true;
 		restartButton.SetActive(false);
 		hyppyPisteetText.enabled = false;
 		onLaskeuduttu = true;
 		hyppyPisteet = 0;
-		onHypätty = false;
 		pelaajaValmis = false;
 		rb.GetComponent<Rigidbody>();
 		GetComponent<Rigidbody>().isKinematic = true;       //Pysäyttää kuution(pelaajan)
@@ -45,20 +50,26 @@ public class hyppyScript : MonoBehaviour
 			hyppyPisteetText.enabled = true;
 			restartBool = true;
 			restartButton.SetActive(true);
+			animaatioLasku = true;
+			AnimaatioScript.animaatio1 = true;
+			//GameObject.Find("Tapio").GetComponent<AnimaatioScript>().Lasku();
 
 		}
 
 		
 
-		if (BasicDemo.S0 < 20 && BasicDemo.S1 < 20 && BasicDemo.S2 < 20 && BasicDemo.S3 < 20 && BasicDemo.S4 < 20 && BasicDemo.S5 < 20 && BasicDemo.S6 < 20 && BasicDemo.S7 < 20 && BasicDemo.S8 < 20 && onHypätty == false)
+		if(BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true)//(onHypätty == false && Input.GetKeyDown(KeyCode.Space))// || 
 		{
-
-			rb.AddForce(Vector3.forward * thrust * 17);
-			rb.AddForce(Vector3.up * thrust * 17);
-			Debug.Log("Työnnön voima: " + thrust);
-			onHypätty = true;
+			
+				//rb.AddForce(Vector3.forward * thrust * 2);
+				rb.AddForce(Vector3.up * thrust * 13);
+				Debug.Log("Työnnön voima: " + thrust);
+				onHypätty = true;
+				hyppyAlueella = false;
+				AnimaatioScript.animaatio3 = true;
 
 		}
+		
 
 		if(onLaskeuduttu == false)
 		{
@@ -68,8 +79,15 @@ public class hyppyScript : MonoBehaviour
 			restartBool = false;
 		}
 
-		
-
+		/*if(Input.GetKeyDown(KeyCode.Space) && hyppyalueLoppu == false && onHypätty == false)
+		{
+			rb.AddForce(Vector3.forward * thrust * 17);
+			rb.AddForce(Vector3.up * thrust * 17);
+			Debug.Log("Työnnön voima: " + thrust);
+			Debug.Log(hyppyalueLoppu);
+			Debug.Log("Toimiiko?");
+		}
+		*/
 
 	}
 
@@ -77,11 +95,13 @@ public class hyppyScript : MonoBehaviour
 	{
 		GetComponent<Rigidbody>().isKinematic = true;
 		transform.eulerAngles = new Vector3(0, 90, 0);
-		this.transform.position = new Vector3(-167.7526f, 80.16851f, 40f);
+		this.transform.position = new Vector3(-167.7526f, 112.129f, -27.568f);
 		paneeli.SetActive(true);
 		restartButton.SetActive(false);
 		hyppyPisteet = 0;
 		hyppyPisteetText.text = "Pisteet: " + hyppyPisteet.ToString("F2");
+		AnimaatioScript.animaatio1 = false;
+		AnimaatioScript.animaatio2 = true;
 
 	}
 	
@@ -95,7 +115,8 @@ public class hyppyScript : MonoBehaviour
 			coordinateF = rb.position.z;
 			Debug.Log("Ensimmäinen koordinaatti: " + coordinateF);
 			onLaskeuduttu = false;
-			onHypätty = false;
+			hyppyalueLoppu = false;
+			hyppyAlueella = true;
 		}
 
 		if (other.gameObject.CompareTag("laskualue"))
@@ -107,8 +128,8 @@ public class hyppyScript : MonoBehaviour
 
 		if (other.gameObject.CompareTag("hyppyalueloppu"))
 		{
-			Debug.Log("Enää ei voi hypätä.");
-			onLaskeuduttu = true;
+			Debug.Log("On hypätty");
+			onHypätty = true;
 		}
 	}
 }
