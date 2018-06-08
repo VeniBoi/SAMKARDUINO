@@ -18,6 +18,7 @@ public class kameraScript : MonoBehaviour
 
 	public Transform player;
 	public Vector3 offset;
+	public Vector3 stoppiOffset;
 
 	static public bool playPainettu;
 	public bool kameraKohdalla;
@@ -87,6 +88,11 @@ public class kameraScript : MonoBehaviour
 		restartButton.SetActive(true);
 	}
 
+
+	public void kameraKaannos()
+	{
+		StartCoroutine(TransitionLaskeuduttu());
+	}
 	/*public void liikutusAnalyysi()
 	{
 
@@ -124,24 +130,26 @@ public class kameraScript : MonoBehaviour
 		}
 	}
 
-	/*IEnumerator TransitionAnalyysi()
+	IEnumerator TransitionLaskeuduttu()
 	{
 		float t = 0.0f;
 		Vector3 startingPos = transform.position;
+		Quaternion startingRot = transform.rotation;
 		while (t < 1.0f)
 		{
 			t += Time.deltaTime * (Time.timeScale / transitionDuration);
 
+			transform.position = player.position + offset;
 
-			transform.position = Vector3.Lerp(startingPos, targetAnalyysi.position, t);
-
-
+			transform.position = Vector3.Lerp(startingPos, player.position + stoppiOffset, t);
+			transform.rotation = Quaternion.Lerp(startingRot, player.rotation , 0);
+			
 
 			yield return 0;
 		}
 	}
 
-	*/
+	
 
 
 	IEnumerator TransitionBack()

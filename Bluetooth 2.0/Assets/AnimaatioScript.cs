@@ -11,6 +11,12 @@ public class AnimaatioScript : MonoBehaviour {
 	static public bool animaatio3;
 	static public bool animaatio4;
 
+	static public bool animaatio5;
+	static public bool animaatio6;
+
+	static public bool animaatio7;
+	static public bool animaatio8;
+
 	// Use this for initialization
 	void Start () {
 		animaatio1 = false;
@@ -18,6 +24,12 @@ public class AnimaatioScript : MonoBehaviour {
 
 		animaatio3 = false;
 		animaatio4 = true;
+
+		animaatio5 = false;
+		animaatio6 = true;
+
+		animaatio7 = false;
+		animaatio8 = true;
 	}
 	
 	// Update is called once per frame
@@ -35,23 +47,19 @@ public class AnimaatioScript : MonoBehaviour {
 			Debug.Log("Liito animaatio alkaa");
 			animaatio4 = false;
 		}
-	}
 
-	public void Lasku()
-	{
-		
-		Debug.Log("Lasku animaatio alkaa");
-	}
+		if (animaatio5 == true && animaatio6 == true)
+		{
+			this.GetComponent<Animator>().Play("Telemark", -1, 0.0f);
+			Debug.Log("Liito animaatio alkaa");
+			animaatio6 = false;
+		}
 
-	public void Liito()
-	{
-		this.GetComponent<Animator>().Play("Liito", -1, 0.0f);
-		Debug.Log("Liito animaatio alkaa");
-	}
-
-	public void Telemark()
-	{
-		this.GetComponent<Animator>().Play("Telemark", -1, 0.0f);
-		Debug.Log("Telemark animaatio alkaa");
+		if (animaatio7 == true && animaatio8 == true)
+		{
+			this.GetComponent<Animator>().Play("Pys_ytys", -1, 0.0f);
+			Debug.Log("Nyt pysähdytään POIKITTAIN");
+			animaatio8 = false;
+		}
 	}
 }

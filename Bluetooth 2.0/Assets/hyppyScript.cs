@@ -13,6 +13,7 @@ public class hyppyScript : MonoBehaviour
 	public float hyppyPisteet;
 	public Text hyppyPisteetText;
 	public GameObject restartButton;
+	public GameObject partikkelit;
 
 	static public bool pelaajaValmis;
 	public bool onHypätty;
@@ -21,11 +22,19 @@ public class hyppyScript : MonoBehaviour
 	public bool hyppyalueLoppu;
 	public bool animaatioLasku;
 	public bool hyppyAlueella;
+	public bool kääntöKohtaYlitetty;
+	public bool animaatioBool;
 
+	public Vector3 velocity;
+	public Vector3 targetVelocity;
 
 	// Use this for initialization
 	void Start()
 	{
+		targetVelocity = new Vector3(0.0f, 0.0f, 0.0f);
+
+		animaatioBool = true;
+		kääntöKohtaYlitetty = false;
 		hyppyAlueella = false;
 		animaatioLasku = false;
 		hyppyalueLoppu = true;
@@ -41,6 +50,22 @@ public class hyppyScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+
+		RaycastHit hit;
+
+		Ray downray = new Ray(transform.position, -Vector3.up);
+		Debug.DrawRay(transform.position, -Vector3.up * 20, Color.red);
+
+		if (Physics.Raycast(downray, out hit, 10) && kääntöKohtaYlitetty == true && animaatioBool == true)
+		{
+			Debug.Log("Nyt lähtee laskeutumisanimaatio käyntiin");
+			AnimaatioScript.animaatio5 = true;
+			animaatioBool = false;
+		}
+
+
+
+
 		thrust = rb.position.z - coordinateF;
 
 		if (kameraScript.playPainettu == true && kameraScript.pelaajaPaikalla == true && BasicDemo.S0 == 0 && BasicDemo.S1 == 0 && BasicDemo.S2 == 0 && BasicDemo.S3 == 0 && BasicDemo.S4 == 0 && BasicDemo.S5 == 0 && BasicDemo.S6 == 0 && BasicDemo.S7 == 0 && BasicDemo.S8 == 0)
@@ -62,7 +87,7 @@ public class hyppyScript : MonoBehaviour
 		{
 			
 				//rb.AddForce(Vector3.forward * thrust * 2);
-				rb.AddForce(Vector3.up * thrust * 13);
+				rb.AddForce(Vector3.up * thrust * 15);
 				Debug.Log("Työnnön voima: " + thrust);
 				onHypätty = true;
 				hyppyAlueella = false;
@@ -94,7 +119,7 @@ public class hyppyScript : MonoBehaviour
 	public void Restart()
 	{
 		GetComponent<Rigidbody>().isKinematic = true;
-		transform.eulerAngles = new Vector3(0, 90, 0);
+		transform.eulerAngles = new Vector3(0, 89, 0);
 		this.transform.position = new Vector3(-167.7526f, 112.129f, -27.568f);
 		paneeli.SetActive(true);
 		restartButton.SetActive(false);
@@ -102,9 +127,26 @@ public class hyppyScript : MonoBehaviour
 		hyppyPisteetText.text = "Pisteet: " + hyppyPisteet.ToString("F2");
 		AnimaatioScript.animaatio1 = false;
 		AnimaatioScript.animaatio2 = true;
+		AnimaatioScript.animaatio3 = false;
+		AnimaatioScript.animaatio4 = true;
+		AnimaatioScript.animaatio5 = false;
+		AnimaatioScript.animaatio6 = true;
+		AnimaatioScript.animaatio7 = false;
+		AnimaatioScript.animaatio8 = true;
+		kääntöKohtaYlitetty = false;
+		animaatioBool = true;
+		GameObject.Find("lasku").GetComponent<materiaaliScript>().materiaaliVaihtoTakas();
+		rb.constraints = RigidbodyConstraints.None;
 
 	}
-	
+
+	IEnumerator partikkelitNum()
+	{
+		yield return new WaitForSeconds(0.3f);
+		partikkelit.SetActive(true);
+		yield return new WaitForSeconds(2.7f);
+		partikkelit.SetActive(false);
+	}
 
 	void OnTriggerEnter(Collider other)
 	{
@@ -113,7 +155,6 @@ public class hyppyScript : MonoBehaviour
 		{
 			//Laske koordinaatin mukaan addforce voima, jolla "hypätään".
 			coordinateF = rb.position.z;
-			Debug.Log("Ensimmäinen koordinaatti: " + coordinateF);
 			onLaskeuduttu = false;
 			hyppyalueLoppu = false;
 			hyppyAlueella = true;
@@ -128,8 +169,46 @@ public class hyppyScript : MonoBehaviour
 
 		if (other.gameObject.CompareTag("hyppyalueloppu"))
 		{
+			GetComponent<Rigidbody>().AddTorque(-transform.forward * 1f * 1f);
 			Debug.Log("On hypätty");
 			onHypätty = true;
 		}
+
+		if (other.gameObject.CompareTag("rotateCollider"))
+		{
+			Debug.Log("Kääntyminen alkaa");
+			GetComponent<Rigidbody>().AddTorque(-transform.forward * 1.7f * 1.7f);
+			GetComponent<Rigidbody>().AddTorque(-transform.up * 1f * 1f);
+			GetComponent<Rigidbody>().AddTorque(transform.right * 1f * 1f);
+			kääntöKohtaYlitetty = true;
+		}
+
+		if (other.gameObject.CompareTag("stoppiTrigger"))
+		{
+			Debug.Log("Pysähdytään!");
+			AnimaatioScript.animaatio7 = true;
+			
+
+			rb.AddForce(-Vector3.forward * 5 * 5);
+			rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+			//rb.constraints = RigidbodyConstraints.FreezeRotationY;
+			//rb.constraints = RigidbodyConstraints.FreezeRotationX;
+			GameObject.Find("lasku").GetComponent<materiaaliScript>().materiaaliVaihto();
+			StartCoroutine(partikkelitNum());
+
+		}
+
+		if (other.gameObject.CompareTag("stoppiTriggerForce"))
+		{
+			rb.AddForce(-Vector3.forward * 30 * 30);
+		}
+
+		if (other.gameObject.CompareTag("stoppiTriggerForce1"))
+		{
+			
+			rb.AddForce(-Vector3.forward * 10 * 10);
+		}
+
+		
 	}
 }

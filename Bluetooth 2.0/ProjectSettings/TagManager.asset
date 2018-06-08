@@ -8,6 +8,10 @@ TagManager:
   - hyppyalue
   - laskualue
   - hyppyalueloppu
+  - rotateCollider
+  - stoppiTrigger
+  - stoppiTriggerForce
+  - stoppiTriggerForce1
   layers:
   - Default
   - TransparentFX
