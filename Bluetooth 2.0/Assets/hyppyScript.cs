@@ -15,6 +15,8 @@ public class hyppyScript : MonoBehaviour
 	public GameObject restartButton;
 	public GameObject partikkelit;
 
+	public float Hidastus;
+
 	static public bool pelaajaValmis;
 	public bool onHypätty;
 	public bool onLaskeuduttu;
@@ -25,8 +27,11 @@ public class hyppyScript : MonoBehaviour
 	public bool kääntöKohtaYlitetty;
 	public bool animaatioBool;
 
+	public Transform player;
+
 	public Vector3 velocity;
 	public Vector3 targetVelocity;
+	public Quaternion targetAsento;
 
 	// Use this for initialization
 	void Start()
@@ -85,8 +90,9 @@ public class hyppyScript : MonoBehaviour
 
 		if(BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true)//(onHypätty == false && Input.GetKeyDown(KeyCode.Space))// || 
 		{
-			
-				//rb.AddForce(Vector3.forward * thrust * 2);
+
+			//rb.AddForce(Vector3.forward * thrust * 2);
+				Time.timeScale = 1f;
 				rb.AddForce(Vector3.up * thrust * 15);
 				Debug.Log("Työnnön voima: " + thrust);
 				onHypätty = true;
@@ -144,7 +150,7 @@ public class hyppyScript : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.3f);
 		partikkelit.SetActive(true);
-		yield return new WaitForSeconds(2.7f);
+		yield return new WaitForSeconds(2.3f);
 		partikkelit.SetActive(false);
 	}
 
@@ -154,6 +160,7 @@ public class hyppyScript : MonoBehaviour
 		if (other.gameObject.CompareTag("hyppyalue"))
 		{
 			//Laske koordinaatin mukaan addforce voima, jolla "hypätään".
+			Time.timeScale = Hidastus;
 			coordinateF = rb.position.z;
 			onLaskeuduttu = false;
 			hyppyalueLoppu = false;
@@ -169,17 +176,19 @@ public class hyppyScript : MonoBehaviour
 
 		if (other.gameObject.CompareTag("hyppyalueloppu"))
 		{
-			GetComponent<Rigidbody>().AddTorque(-transform.forward * 1f * 1f);
+			//GetComponent<Rigidbody>().AddTorque(-transform.forward * 1f * 1f);
 			Debug.Log("On hypätty");
 			onHypätty = true;
+			Time.timeScale = 1f;
 		}
 
 		if (other.gameObject.CompareTag("rotateCollider"))
 		{
 			Debug.Log("Kääntyminen alkaa");
-			GetComponent<Rigidbody>().AddTorque(-transform.forward * 1.7f * 1.7f);
-			GetComponent<Rigidbody>().AddTorque(-transform.up * 1f * 1f);
+			GetComponent<Rigidbody>().AddTorque(-transform.forward * 1.4f * 1.4f);
+			//GetComponent<Rigidbody>().AddTorque(-transform.up * 1f * 1f);
 			GetComponent<Rigidbody>().AddTorque(transform.right * 1f * 1f);
+			
 			kääntöKohtaYlitetty = true;
 		}
 
