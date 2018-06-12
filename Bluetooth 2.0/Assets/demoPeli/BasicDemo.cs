@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 using TechTweaking.Bluetooth;
 
 public class BasicDemo : MonoBehaviour {
@@ -50,6 +50,7 @@ public class BasicDemo : MonoBehaviour {
 
 	public GameObject playPaneeli;
 	public GameObject connectPaneeli;
+	public GameObject hakuPaneeli;
 
 	public bool onYhteys;
 
@@ -61,11 +62,16 @@ public class BasicDemo : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-		
+		DontDestroyOnLoad(this);
+
+		if (FindObjectsOfType(GetType()).Length > 1)
+		{
+			Destroy(gameObject);
+		}
+
+
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;      //ASETETAAN NÄYTTÖ NIIN ETTEI SE SAMMU!
 		
-
-
 		BluetoothAdapter.enableBluetooth();//Force Enabling Bluetooth
 
 
@@ -221,17 +227,21 @@ public class BasicDemo : MonoBehaviour {
 		Sensori8.text = "Sensori8: " + S8.ToString();
 	}
 
+
 	public void Sammutus()
 	{
 		Application.Quit();
 	}
 	
-
-	
-
 	public void btHaku2()
 	{
 		StartCoroutine(odotus());
+	}
+
+	public void hakuTakas()
+	{
+		connectPaneeli.SetActive(false);
+		hakuPaneeli.SetActive(true);
 	}
 
 	IEnumerator odotus()

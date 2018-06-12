@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class vari0 : MonoBehaviour {
 
 	public Color32 color;
+	public Image image;
 
 
 
@@ -20,12 +22,12 @@ public class vari0 : MonoBehaviour {
 
 
 
-		Renderer rend = GetComponent<Renderer>();
+		//Renderer rend = GetComponent<Renderer>();
 
 
-
-		color = new Color32((byte)BasicDemo.mappedValue0, (byte)(255 - BasicDemo.mappedValue0), 0, 255);
-		rend.material.SetColor("_Color", color);
+		this.GetComponent<Image>().color = new Color32((byte)BasicDemo.mappedValue0, (byte)(255 - BasicDemo.mappedValue0), 0, 255);
+		//color = new Color32((byte)BasicDemo.mappedValue0, (byte)(255 - BasicDemo.mappedValue0), 0, 255);
+		//rend.material.SetColor("_Color", color);
 	}
 }
 

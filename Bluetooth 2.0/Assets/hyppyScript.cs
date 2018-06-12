@@ -10,10 +10,11 @@ public class hyppyScript : MonoBehaviour
 	public Rigidbody rb;
 	public float coordinateF;
 	public GameObject paneeli;
-	public float hyppyPisteet;
+	static public float hyppyPisteet;
 	public Text hyppyPisteetText;
 	public GameObject restartButton;
 	public GameObject partikkelit;
+	public GameObject seuraavaTasoPanel;
 
 	public float Hidastus;
 
@@ -26,18 +27,20 @@ public class hyppyScript : MonoBehaviour
 	public bool hyppyAlueella;
 	public bool kääntöKohtaYlitetty;
 	public bool animaatioBool;
+	
 
 	public Transform player;
 
 	public Vector3 velocity;
 	public Vector3 targetVelocity;
-	public Quaternion targetAsento;
+	
 
 	// Use this for initialization
 	void Start()
 	{
 		targetVelocity = new Vector3(0.0f, 0.0f, 0.0f);
 
+		
 		animaatioBool = true;
 		kääntöKohtaYlitetty = false;
 		hyppyAlueella = false;
@@ -55,7 +58,7 @@ public class hyppyScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
+		
 		RaycastHit hit;
 
 		Ray downray = new Ray(transform.position, -Vector3.up);
@@ -146,12 +149,21 @@ public class hyppyScript : MonoBehaviour
 
 	}
 
+	
+	
+
 	IEnumerator partikkelitNum()
 	{
 		yield return new WaitForSeconds(0.3f);
 		partikkelit.SetActive(true);
 		yield return new WaitForSeconds(2.3f);
 		partikkelit.SetActive(false);
+	}
+
+	IEnumerator seuraavataso()
+	{
+		yield return new WaitForSeconds(2f);
+		seuraavaTasoPanel.SetActive(true);
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -180,6 +192,7 @@ public class hyppyScript : MonoBehaviour
 			Debug.Log("On hypätty");
 			onHypätty = true;
 			Time.timeScale = 1f;
+			
 		}
 
 		if (other.gameObject.CompareTag("rotateCollider"))
@@ -209,6 +222,7 @@ public class hyppyScript : MonoBehaviour
 
 		if (other.gameObject.CompareTag("stoppiTriggerForce"))
 		{
+			StartCoroutine(seuraavataso());
 			rb.AddForce(-Vector3.forward * 30 * 30);
 		}
 

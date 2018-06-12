@@ -8,21 +8,23 @@ public class kameraScript : MonoBehaviour
 	
 	public float transitionDuration = 2.5f;
 	public Transform target;
-	public Transform targetAnalyysi;
-	public Transform targetBack;
-	public GameObject canvas;
 	public GameObject laskuri;
 	public GameObject playPaneeli;
 	public GameObject restartButton;
+	public GameObject seuraavatasoPaneeli;
+	public GameObject lumilautaPisteet;
 
 
 	public Transform player;
+	public Transform playerLumi;
 	public Vector3 offset;
 	public Vector3 stoppiOffset;
 
 	static public bool playPainettu;
 	public bool kameraKohdalla;
 	static public bool pelaajaPaikalla;
+	static public bool lumilautaKohdalla;
+	static public bool seuraavatasoPainettu = false;
 
 	
 
@@ -31,7 +33,7 @@ public class kameraScript : MonoBehaviour
 	void Start()
 	{
 		//Paneeli2.GetComponent<Image>().enabled =  false;
-		
+		lumilautaKohdalla = false;
 		kameraKohdalla = false;
 		playPainettu = false;
 		laskuri.SetActive(false);
@@ -45,6 +47,12 @@ public class kameraScript : MonoBehaviour
 		if (kameraKohdalla == true)
 		{
 			transform.position = player.position + offset;
+		}
+
+		if (lumilautaKohdalla == true)
+		{
+			Quaternion.Euler(15, 0, 0);
+			transform.position = playerLumi.position + offset;
 		}
 
 		/*if (BasicDemo.S0 == 0 && BasicDemo.S1 == 0 && BasicDemo.S2 == 0 && BasicDemo.S3 == 0 && BasicDemo.S4 == 0 && BasicDemo.S5 == 0 && BasicDemo.S6 == 0 && BasicDemo.S7 == 0 && BasicDemo.S8 == 0)
@@ -93,24 +101,15 @@ public class kameraScript : MonoBehaviour
 	{
 		StartCoroutine(TransitionLaskeuduttu());
 	}
-	/*public void liikutusAnalyysi()
+	
+	public void lumilautaTasoon()
 	{
-
-		if (BasicDemo.onLiitytty ==  true)
-		{
-			canvas.SetActive(false);
-			input.SetActive(false);
-			backbtn.SetActive(true);
-			connectFirst.SetActive(false);
-			StartCoroutine(TransitionAnalyysi());
-		}
-		else
-		{
-			connectFirst.SetActive(true);
-		}
+		seuraavatasoPaneeli.SetActive(false);
+		lumilautaKohdalla = true;
+		kameraKohdalla = false;
+		seuraavatasoPainettu = true;
+		lumilautaPisteet.SetActive(true);
 	}
-
-	*/
 
 	IEnumerator Transition()
 	{
@@ -147,30 +146,6 @@ public class kameraScript : MonoBehaviour
 
 			yield return 0;
 		}
-	}
-
-	
-
-
-	IEnumerator TransitionBack()
-	{
-
-		float t = 0.0f;
-		Vector3 startingPos = transform.position;
-		while (t < 1.0f)
-		{
-			t += Time.deltaTime * (Time.timeScale / transitionDuration);
-
-
-			transform.position = Vector3.Lerp(startingPos, targetBack.position, t);
-
-
-
-			yield return 0;
-		}
-
-		
-		canvas.SetActive(true);
 	}
 
 	IEnumerator valmis()
