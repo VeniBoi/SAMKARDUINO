@@ -62,12 +62,7 @@ public class BasicDemo : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-		DontDestroyOnLoad(this);
-
-		if (FindObjectsOfType(GetType()).Length > 1)
-		{
-			Destroy(gameObject);
-		}
+		
 
 
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;      //ASETETAAN NÄYTTÖ NIIN ETTEI SE SAMMU!

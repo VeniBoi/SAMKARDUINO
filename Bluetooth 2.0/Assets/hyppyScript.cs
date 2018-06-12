@@ -15,6 +15,7 @@ public class hyppyScript : MonoBehaviour
 	public GameObject restartButton;
 	public GameObject partikkelit;
 	public GameObject seuraavaTasoPanel;
+	public GameObject panel2;
 
 	public float Hidastus;
 
@@ -162,8 +163,10 @@ public class hyppyScript : MonoBehaviour
 
 	IEnumerator seuraavataso()
 	{
-		yield return new WaitForSeconds(2f);
+		yield return new WaitForSeconds(2.5f);
 		seuraavaTasoPanel.SetActive(true);
+		panel2.SetActive(false);
+		//_------------------------------------------------------------------------------------------------------------------------------
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -183,7 +186,7 @@ public class hyppyScript : MonoBehaviour
 		{
 			Debug.Log("On laskeuduttu!");
 			onLaskeuduttu = true;
-			
+			rb.constraints = RigidbodyConstraints.None;
 		}
 
 		if (other.gameObject.CompareTag("hyppyalueloppu"))
@@ -201,7 +204,7 @@ public class hyppyScript : MonoBehaviour
 			GetComponent<Rigidbody>().AddTorque(-transform.forward * 1.4f * 1.4f);
 			//GetComponent<Rigidbody>().AddTorque(-transform.up * 1f * 1f);
 			GetComponent<Rigidbody>().AddTorque(transform.right * 1f * 1f);
-			
+			rb.constraints = RigidbodyConstraints.FreezeRotationZ;
 			kääntöKohtaYlitetty = true;
 		}
 
