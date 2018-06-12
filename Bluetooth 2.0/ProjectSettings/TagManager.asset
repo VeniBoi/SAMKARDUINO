@@ -12,6 +12,7 @@ TagManager:
   - stoppiTrigger
   - stoppiTriggerForce
   - stoppiTriggerForce1
+  - lumilautaLoppuTrigger
   layers:
   - Default
   - TransparentFX

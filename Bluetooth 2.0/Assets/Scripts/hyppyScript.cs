@@ -92,7 +92,7 @@ public class hyppyScript : MonoBehaviour
 
 		
 
-		if(BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true)//(onHypätty == false && Input.GetKeyDown(KeyCode.Space))// || 
+		if(/*BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true || */Input.GetKeyDown((KeyCode.Space)))//(onHypätty == false && Input.GetKeyDown(KeyCode.Space))// || 
 		{
 
 			//rb.AddForce(Vector3.forward * thrust * 2);
@@ -102,6 +102,8 @@ public class hyppyScript : MonoBehaviour
 				onHypätty = true;
 				hyppyAlueella = false;
 				AnimaatioScript.animaatio3 = true;
+				rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+				
 
 		}
 		
@@ -187,6 +189,7 @@ public class hyppyScript : MonoBehaviour
 			Debug.Log("On laskeuduttu!");
 			onLaskeuduttu = true;
 			rb.constraints = RigidbodyConstraints.None;
+			rb.constraints = RigidbodyConstraints.FreezeRotationY; 
 		}
 
 		if (other.gameObject.CompareTag("hyppyalueloppu"))
@@ -201,10 +204,13 @@ public class hyppyScript : MonoBehaviour
 		if (other.gameObject.CompareTag("rotateCollider"))
 		{
 			Debug.Log("Kääntyminen alkaa");
-			GetComponent<Rigidbody>().AddTorque(-transform.forward * 1.4f * 1.4f);
+			//GetComponent<Rigidbody>().AddTorque(-transform.forward * 1.4f * 1.4f);
 			//GetComponent<Rigidbody>().AddTorque(-transform.up * 1f * 1f);
-			GetComponent<Rigidbody>().AddTorque(transform.right * 1f * 1f);
+			//GetComponent<Rigidbody>().AddTorque(transform.right * 1f * 1f);
 			rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+			rb.constraints = RigidbodyConstraints.FreezeRotationX;
+			rb.constraints = RigidbodyConstraints.FreezeRotationY;
+
 			kääntöKohtaYlitetty = true;
 		}
 
