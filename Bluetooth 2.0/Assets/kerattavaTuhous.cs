@@ -14,7 +14,7 @@ public class kerattavaTuhous : MonoBehaviour {
 		
 	}
 
-	void OnTriggerExit(Collider other)
+	void OnTriggerEnter(Collider other)
 	{
 
 		if (other.gameObject.CompareTag("pelaaja2"))
