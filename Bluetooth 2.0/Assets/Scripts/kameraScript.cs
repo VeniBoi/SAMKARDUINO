@@ -13,6 +13,8 @@ public class kameraScript : MonoBehaviour
 	public GameObject restartButton;
 	public GameObject seuraavatasoPaneeli;
 	public GameObject lumilautaPisteet;
+	public GameObject menuNappi;
+	public GameObject searchMenu;
 
 
 	public Transform player;
@@ -94,6 +96,7 @@ public class kameraScript : MonoBehaviour
 	{
 		playPaneeli.SetActive(false);
 		restartButton.SetActive(true);
+		menuNappi.SetActive(true);
 	}
 
 
@@ -109,6 +112,14 @@ public class kameraScript : MonoBehaviour
 		kameraKohdalla = false;
 		seuraavatasoPainettu = true;
 		lumilautaPisteet.SetActive(true);
+	}
+
+	public void takaisinMenuun()
+	{
+		transform.position = new Vector3(990, 817, 35);
+		menuNappi.SetActive(true);
+		playPaneeli.SetActive(true);
+		searchMenu.SetActive(true);
 	}
 
 	IEnumerator Transition()

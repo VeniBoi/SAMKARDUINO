@@ -31,18 +31,13 @@ public class lumilautaScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update()
 	{
-		if (lumilautaloppu == true)
-		{
-			pisteetLumilauta = rb.position.z - coordinateF;
-			pisteetLumilautaText.text = "Pisteet: " + pisteetLumilauta.ToString("F2");
-		}
-		
 
+		pisteetLumilautaText.text = "Pisteet: " + pisteetLumilauta.ToString("F0");
 		
 
 		if (kameraScript.seuraavatasoPainettu == true)
 		{
-			GetComponent<Rigidbody>().isKinematic = false;
+
 			
 		}
 
@@ -50,7 +45,7 @@ public class lumilautaScript : MonoBehaviour {
 		if (kameraScript.seuraavatasoPainettu == true && BasicDemo.S0 == 0 && BasicDemo.S1 == 0 && BasicDemo.S2 == 0 && BasicDemo.S3 == 0 && BasicDemo.S4 == 0 && BasicDemo.S5 == 0 && BasicDemo.S6 == 0 && BasicDemo.S7 == 0 && BasicDemo.S8 == 0)
 		{
 			standupPanel.SetActive(false);
-			
+			GetComponent<Rigidbody>().isKinematic = false;
 		}
 
 		if (Input.GetKey("a"))
@@ -91,5 +86,7 @@ public class lumilautaScript : MonoBehaviour {
 			lumilautaloppu = false;
 			//randomBool = false;
 		}
+
+	
 	}
 }
