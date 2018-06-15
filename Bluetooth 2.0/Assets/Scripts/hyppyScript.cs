@@ -16,6 +16,7 @@ public class hyppyScript : MonoBehaviour
 	public GameObject partikkelit;
 	public GameObject seuraavaTasoPanel;
 	public GameObject panel2;
+	public Text totalpoints;
 
 	public float Hidastus;
 
@@ -90,9 +91,9 @@ public class hyppyScript : MonoBehaviour
 
 		}
 
-		
 
-		if(/*BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true || */Input.GetKeyDown((KeyCode.Space)))//(onHypätty == false && Input.GetKeyDown(KeyCode.Space))// || 
+
+		if (Input.GetKeyDown("space") && hyppyAlueella == true)  //if(BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true) 
 		{
 
 			//rb.AddForce(Vector3.forward * thrust * 2);
@@ -100,10 +101,10 @@ public class hyppyScript : MonoBehaviour
 				rb.AddForce(Vector3.up * thrust * 15);
 				Debug.Log("Työnnön voima: " + thrust);
 				onHypätty = true;
-				hyppyAlueella = false;
 				AnimaatioScript.animaatio3 = true;
 				rb.constraints = RigidbodyConstraints.FreezeRotationZ;
-				
+				hyppyAlueella = false;
+
 
 		}
 		
@@ -111,7 +112,7 @@ public class hyppyScript : MonoBehaviour
 		if(onLaskeuduttu == false)
 		{
 			hyppyPisteet = rb.position.z - coordinateF;
-			hyppyPisteetText.text = "Pisteet: " + hyppyPisteet.ToString("F2");
+			hyppyPisteetText.text = "Score: " + hyppyPisteet.ToString("F0");
 			//paneeli.SetActive(true);
 			restartBool = false;
 		}
@@ -232,7 +233,11 @@ public class hyppyScript : MonoBehaviour
 		if (other.gameObject.CompareTag("stoppiTriggerForce"))
 		{
 			StartCoroutine(seuraavataso());
+			kameraScript.totalPoints = kameraScript.totalPoints + hyppyPisteet;
+			totalpoints.text = "Total Points: " + kameraScript.totalPoints.ToString("F0");
+			Debug.Log(kameraScript.totalPoints);
 			rb.AddForce(-Vector3.forward * 30 * 30);
+			
 		}
 
 		if (other.gameObject.CompareTag("stoppiTriggerForce1"))
