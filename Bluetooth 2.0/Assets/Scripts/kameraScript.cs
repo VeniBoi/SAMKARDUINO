@@ -19,6 +19,7 @@ public class kameraScript : MonoBehaviour
 	public GameObject lumisotaPanel;
 	public GameObject lumisotaPeli;
 	public GameObject lumisotaReadyPanel;
+	public GameObject maalitaulu;
 
 
 	public GameObject finalPanel;
@@ -47,16 +48,25 @@ public class kameraScript : MonoBehaviour
 
 	public float timer;
 	public bool canCount;
-	private bool doOnce = false;
+
 	
 
+	public void maalitauluSpawn()
+	{
+		GameObject lumisotaPeli = Instantiate(maalitaulu, transform.position, Quaternion.identity) as GameObject;
 
+		lumisotaPeli.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+	}
 	// Use this for initialization
 	void Start()
 	{
+		InvokeRepeating("maalitauluSpawn", 0.5f, 2f);
+
+		
 		timer = mainTimer;
 		aikaLoppu = true;
 		canCount = false;
+		
 
 		lumisotaPisteet = 0;
 		totalPoints = 0;
@@ -73,9 +83,15 @@ public class kameraScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+	
+		if (canCount == false)
+		{
+			Destroy(GameObject.FindGameObjectWithTag("maalitaulu"));
+		}
 
 		if (timer >= 0.0f && canCount)
 		{
+			
 			timer -= Time.deltaTime;
 			timerText.text = "Time Left: " + timer.ToString("F0");
 		}
@@ -90,7 +106,10 @@ public class kameraScript : MonoBehaviour
 			finalPanel.SetActive(true);
 			lumisotaPeli.SetActive(false);
 			lumisotaPanel.SetActive(false);
+			
 		}
+
+	
 		/*else if (timer <= 0.0f && !doOnce)
 		{
 			canCount = false;
@@ -125,6 +144,22 @@ public class kameraScript : MonoBehaviour
 			GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().isKinematic = false;
 		}
 		*/
+	}
+
+
+	public void aloitaAlusta()
+	{
+		finalPanel.SetActive(false);
+		playPaneeli.SetActive(true);
+		canCount = false;
+		aikaLoppu = true;
+		mainTimer = 10f;
+		lumisotaPisteet = 0;
+		totalPoints = 0;
+		lumisotaPisteetText.text = "Score: " + lumisotaPisteet.ToString();
+		timer = mainTimer;
+		GameObject.Find("Pelaaja").GetComponent<hyppyScript>().Restart();
+		//GameObject.Find("Pelaaja2").GetComponent<lumilautaScript>().Restart();
 	}
 
 	public void sammutus()

@@ -35,14 +35,17 @@ public class hyppyScript : MonoBehaviour
 
 	public Vector3 velocity;
 	public Vector3 targetVelocity;
-	
+
+	public Vector3 paikka;
+	public Quaternion paikka2;
+
 
 	// Use this for initialization
 	void Start()
 	{
 		targetVelocity = new Vector3(0.0f, 0.0f, 0.0f);
-
-		
+		paikka = this.transform.position;
+		paikka2 = this.transform.rotation;
 		animaatioBool = true;
 		kääntöKohtaYlitetty = false;
 		hyppyAlueella = false;
@@ -93,7 +96,7 @@ public class hyppyScript : MonoBehaviour
 
 
 
-		if (Input.GetKeyDown("space") && hyppyAlueella == true)  //if(BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true) 
+		/*if (Input.GetKeyDown("space") && hyppyAlueella == true)*/ if(BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true) 
 		{
 
 			//rb.AddForce(Vector3.forward * thrust * 2);
@@ -129,15 +132,22 @@ public class hyppyScript : MonoBehaviour
 
 	}
 
+
+
 	public void Restart()
 	{
+		kameraScript.playPainettu = false;
 		GetComponent<Rigidbody>().isKinematic = true;
-		transform.eulerAngles = new Vector3(0, 89, 0);
-		this.transform.position = new Vector3(-167.7526f, 112.129f, -27.568f);
+		rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
+		
+		transform.position = paikka;
+		transform.rotation = paikka2;
+		//transform.eulerAngles = new Vector3(0, 89, 0);
+		//this.transform.position = new Vector3(-167.7526f, 112.129f, -27.568f);
 		paneeli.SetActive(true);
 		restartButton.SetActive(false);
 		hyppyPisteet = 0;
-		hyppyPisteetText.text = "Pisteet: " + hyppyPisteet.ToString("F2");
+		hyppyPisteetText.text = "Pisteet: " + hyppyPisteet.ToString("F0");
 		AnimaatioScript.animaatio1 = false;
 		AnimaatioScript.animaatio2 = true;
 		AnimaatioScript.animaatio3 = false;
@@ -149,7 +159,6 @@ public class hyppyScript : MonoBehaviour
 		kääntöKohtaYlitetty = false;
 		animaatioBool = true;
 		GameObject.Find("lasku").GetComponent<materiaaliScript>().materiaaliVaihtoTakas();
-		rb.constraints = RigidbodyConstraints.None;
 
 	}
 
@@ -189,8 +198,8 @@ public class hyppyScript : MonoBehaviour
 		{
 			Debug.Log("On laskeuduttu!");
 			onLaskeuduttu = true;
-			rb.constraints = RigidbodyConstraints.None;
-			rb.constraints = RigidbodyConstraints.FreezeRotationY; 
+			//rb.constraints = RigidbodyConstraints.None;
+			rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX; 
 		}
 
 		if (other.gameObject.CompareTag("hyppyalueloppu"))
@@ -205,13 +214,7 @@ public class hyppyScript : MonoBehaviour
 		if (other.gameObject.CompareTag("rotateCollider"))
 		{
 			Debug.Log("Kääntyminen alkaa");
-			//GetComponent<Rigidbody>().AddTorque(-transform.forward * 1.4f * 1.4f);
-			//GetComponent<Rigidbody>().AddTorque(-transform.up * 1f * 1f);
-			//GetComponent<Rigidbody>().AddTorque(transform.right * 1f * 1f);
-			rb.constraints = RigidbodyConstraints.FreezeRotationZ;
-			rb.constraints = RigidbodyConstraints.FreezeRotationX;
 			rb.constraints = RigidbodyConstraints.FreezeRotationY;
-
 			kääntöKohtaYlitetty = true;
 		}
 
@@ -222,9 +225,8 @@ public class hyppyScript : MonoBehaviour
 			
 
 			rb.AddForce(-Vector3.forward * 5 * 5);
-			rb.constraints = RigidbodyConstraints.FreezeRotationZ;
-			//rb.constraints = RigidbodyConstraints.FreezeRotationY;
-			//rb.constraints = RigidbodyConstraints.FreezeRotationX;
+			//rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+			rb.constraints = RigidbodyConstraints.FreezePositionX;
 			GameObject.Find("lasku").GetComponent<materiaaliScript>().materiaaliVaihto();
 			StartCoroutine(partikkelitNum());
 

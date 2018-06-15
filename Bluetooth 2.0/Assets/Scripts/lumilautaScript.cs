@@ -14,6 +14,7 @@ public class lumilautaScript : MonoBehaviour {
 	public Rigidbody rb;
 	public float coordinateF;
 	public bool pelikaynnissa;
+	public Vector3 paikka;
 
 	//public Quaternion vasen = Quaternion.Euler(20.85f, 0, 20);
 	//public Quaternion oikea = Quaternion.Euler(20.85f, 0, -20);
@@ -22,10 +23,29 @@ public class lumilautaScript : MonoBehaviour {
 	public bool lumilautaloppu;
 	//bool randomBool;
 
+	public void Restart()
+	{
+		GetComponent<Rigidbody>().isKinematic = true;
+		//transform.eulerAngles = new Vector3(16.548f, 0f, 0f);
+		transform.position = paikka;
+		pisteetLumilauta = 0;
+		pisteetLumilautaText.text = "Pisteet: " + pisteetLumilauta.ToString("F0");
+		rb.constraints = RigidbodyConstraints.None;
+		rb.constraints = RigidbodyConstraints.FreezePositionX;
+		rb.constraints = RigidbodyConstraints.FreezeRotationX;
+		rb.constraints = RigidbodyConstraints.FreezeRotationY;
+		pelikaynnissa = false;
+		lumilautaloppu = true;
+		kameraScript.seuraavatasoPainettu = false;
+
+
+	}
 
 	// Use this for initialization
 	void Start()
 	{
+		paikka = this.transform.position;
+
 		pelikaynnissa = false;
 		lumisotaPanel.SetActive(false);
 		lumilautaloppu = true;
@@ -61,10 +81,10 @@ public class lumilautaScript : MonoBehaviour {
 			pelikaynnissa = true;
 		}
 
-		if (pelikaynnissa == true && Input.GetKey("a"))//(BasicDemo.S3 < 80)
+		/*if (pelikaynnissa == true && Input.GetKey("a"))*/ if(BasicDemo.S3 < 80)
 		{
 			//rb.AddForce(-Vector3.right * 30 * Time.deltaTime);
-			transform.position += new Vector3(-0.5f, 0, 0);
+			transform.position += new Vector3(-0.4f, 0, 0);
 			transform.rotation = Quaternion.Euler(20.85f, 0, 20);
 		}
 		else
@@ -72,10 +92,10 @@ public class lumilautaScript : MonoBehaviour {
 			transform.rotation = Quaternion.Euler(20.85f, 0, 0);
 		}
 
-		if (pelikaynnissa == true &&Input.GetKey("d"))//(BasicDemo.S1 < 80)
+		/*if (pelikaynnissa == true &&Input.GetKey("d"))*/if (BasicDemo.S1 < 80)
 		{
 			//rb.AddForce(Vector3.right * 30 * Time.deltaTime);
-			transform.position += new Vector3(0.5f, 0, 0);
+			transform.position += new Vector3(0.4f, 0, 0);
 			transform.rotation = Quaternion.Euler(20.85f, 0, -20);
 		}
 		
