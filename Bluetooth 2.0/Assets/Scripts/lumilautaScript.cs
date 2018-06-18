@@ -16,11 +16,14 @@ public class lumilautaScript : MonoBehaviour {
 	public bool pelikaynnissa;
 	public Vector3 paikka;
 
+
+
 	//public Quaternion vasen = Quaternion.Euler(20.85f, 0, 20);
 	//public Quaternion oikea = Quaternion.Euler(20.85f, 0, -20);
 	//public Quaternion ylös = Quaternion.Euler(20.85f, 0, 0);
 
 	public bool lumilautaloppu;
+	public bool kaantoBool;
 	//bool randomBool;
 
 	public void Restart()
@@ -45,7 +48,7 @@ public class lumilautaScript : MonoBehaviour {
 	void Start()
 	{
 		paikka = this.transform.position;
-
+		kaantoBool = false;
 		pelikaynnissa = false;
 		lumisotaPanel.SetActive(false);
 		lumilautaloppu = true;
@@ -81,22 +84,28 @@ public class lumilautaScript : MonoBehaviour {
 			pelikaynnissa = true;
 		}
 
-		/*if (pelikaynnissa == true && Input.GetKey("a"))*/ if(BasicDemo.S3 < 80)
+		if (BasicDemo.S3 < 80) //(pelikaynnissa == true && Input.GetKey("a")) 
 		{
 			//rb.AddForce(-Vector3.right * 30 * Time.deltaTime);
-			transform.position += new Vector3(-0.4f, 0, 0);
+			//transform.position += new Vector3(-0.4f, 0, 0);
 			transform.rotation = Quaternion.Euler(20.85f, 0, 20);
+
+			int erotusVasen = BasicDemo.S1 - BasicDemo.S3;
+			transform.position += new Vector3(-erotusVasen / 100f, 0, 0);
 		}
 		else
 		{
 			transform.rotation = Quaternion.Euler(20.85f, 0, 0);
 		}
 
-		/*if (pelikaynnissa == true &&Input.GetKey("d"))*/if (BasicDemo.S1 < 80)
+		if (BasicDemo.S1 < 80) //(pelikaynnissa == true &&Input.GetKey("d"))
 		{
 			//rb.AddForce(Vector3.right * 30 * Time.deltaTime);
-			transform.position += new Vector3(0.4f, 0, 0);
+			//transform.position += new Vector3(0.4f, 0, 0);
 			transform.rotation = Quaternion.Euler(20.85f, 0, -20);
+
+			int erotusOikea = BasicDemo.S3 - BasicDemo.S1;
+			transform.position += new Vector3(erotusOikea / 100f, 0, 0);
 		}
 		
 		
@@ -131,6 +140,7 @@ public class lumilautaScript : MonoBehaviour {
 			StartCoroutine(seuraavataso());
 			Debug.Log(pelikaynnissa);
 			//randomBool = false;
+			
 		}
 
 	

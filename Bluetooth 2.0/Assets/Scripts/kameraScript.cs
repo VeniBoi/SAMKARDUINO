@@ -49,14 +49,19 @@ public class kameraScript : MonoBehaviour
 	public float timer;
 	public bool canCount;
 
-	
+	public Transform[] spawnpoints;
 
 	public void maalitauluSpawn()
 	{
-		GameObject lumisotaPeli = Instantiate(maalitaulu, transform.position, Quaternion.identity) as GameObject;
+		int[] spawnint = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+		string test = (Random.Range(0, spawnint.Length).ToString());
 
-		lumisotaPeli.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+		GameObject taulu = Instantiate(maalitaulu) as GameObject;
+		taulu.transform.SetParent(GameObject.FindGameObjectWithTag(test).transform, false);
+
 	}
+
+
 	// Use this for initialization
 	void Start()
 	{
