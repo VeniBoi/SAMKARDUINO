@@ -18,7 +18,6 @@ public class hyppyScript : MonoBehaviour
 	public GameObject panel2;
 	public Text totalpoints;
 
-	public float Hidastus;
 
 	static public bool pelaajaValmis;
 	public bool onHypätty;
@@ -39,6 +38,7 @@ public class hyppyScript : MonoBehaviour
 	public Vector3 paikka;
 	public Quaternion paikka2;
 
+	public float hidastus;
 
 	// Use this for initialization
 	void Start()
@@ -58,6 +58,7 @@ public class hyppyScript : MonoBehaviour
 		pelaajaValmis = false;
 		rb.GetComponent<Rigidbody>();
 		GetComponent<Rigidbody>().isKinematic = true;       //Pysäyttää kuution(pelaajan)
+		hidastus = 0.15f;
 	}
 
 	// Update is called once per frame
@@ -96,7 +97,7 @@ public class hyppyScript : MonoBehaviour
 
 
 
-		/*if (Input.GetKeyDown("space") && hyppyAlueella == true)*/ if(BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true) 
+		if (Input.GetKeyDown("space") && hyppyAlueella == true) /*if(BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true)*/ 
 		{
 
 			//rb.AddForce(Vector3.forward * thrust * 2);
@@ -132,7 +133,7 @@ public class hyppyScript : MonoBehaviour
 
 	}
 
-
+	
 
 	public void Restart()
 	{
@@ -181,17 +182,24 @@ public class hyppyScript : MonoBehaviour
 		//_------------------------------------------------------------------------------------------------------------------------------
 	}
 
+	public void adjustTime(float uusihidastus)
+	{
+		hidastus = uusihidastus;
+	}
+
 	void OnTriggerEnter(Collider other)
 	{
 
 		if (other.gameObject.CompareTag("hyppyalue"))
 		{
 			//Laske koordinaatin mukaan addforce voima, jolla "hypätään".
-			Time.timeScale = Hidastus;
+			Time.timeScale = hidastus;
 			coordinateF = rb.position.z;
 			onLaskeuduttu = false;
 			hyppyalueLoppu = false;
 			hyppyAlueella = true;
+			Debug.Log("Hidastus nopeus: " + hidastus);
+			Debug.Log(Time.timeScale);
 		}
 
 		if (other.gameObject.CompareTag("laskualue"))

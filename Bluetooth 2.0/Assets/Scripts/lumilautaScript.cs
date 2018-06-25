@@ -14,9 +14,11 @@ public class lumilautaScript : MonoBehaviour {
 	public Rigidbody rb;
 	public float coordinateF;
 	public bool pelikaynnissa;
+	public bool staticLiikutus;
+	public bool staticLiikutus2;
 	public Vector3 paikka;
 
-
+	public float vastaVoima;
 
 	//public Quaternion vasen = Quaternion.Euler(20.85f, 0, 20);
 	//public Quaternion oikea = Quaternion.Euler(20.85f, 0, -20);
@@ -44,9 +46,15 @@ public class lumilautaScript : MonoBehaviour {
 
 	}
 
+	public void speedChange(float newSpeed)
+	{
+		vastaVoima = newSpeed;
+	}
+
 	// Use this for initialization
 	void Start()
 	{
+		vastaVoima = 0.3f;
 		paikka = this.transform.position;
 		kaantoBool = false;
 		pelikaynnissa = false;
@@ -56,7 +64,9 @@ public class lumilautaScript : MonoBehaviour {
 		pisteetLumilauta = 0;
 		//pisteetLumilautaText.text = "Pisteet: " + pisteetLumilauta.ToString("F2");
 		rb.GetComponent<Rigidbody>();
-		GetComponent<Rigidbody>().isKinematic = true;
+		GetComponent<Rigidbody>().isKinematic = true; // -----------------------------------------------------------------------------
+		staticLiikutus = false;
+		staticLiikutus2 = true;
 	}
 
 
@@ -69,43 +79,50 @@ public class lumilautaScript : MonoBehaviour {
 
 		pisteetLumilautaText.text = "Pisteet: " + pisteetLumilauta.ToString("F0");
 		
-
-		if (kameraScript.seuraavatasoPainettu == true)
+		if (staticLiikutus)
 		{
+			rb.AddForce(-transform.forward * vastaVoima, ForceMode.Force);
 
-			
+			if (staticLiikutus2)
+			{
+				rb.AddForce(transform.forward * 1500 * Time.deltaTime, ForceMode.Impulse);
+				staticLiikutus2 = false;
+			}
 		}
+		
 
 
 		if (kameraScript.seuraavatasoPainettu == true && BasicDemo.S0 == 0 && BasicDemo.S1 == 0 && BasicDemo.S2 == 0 && BasicDemo.S3 == 0 && BasicDemo.S4 == 0 && BasicDemo.S5 == 0 && BasicDemo.S6 == 0 && BasicDemo.S7 == 0 && BasicDemo.S8 == 0)
 		{
 			standupPanel.SetActive(false);
-			GetComponent<Rigidbody>().isKinematic = false;
+			GetComponent<Rigidbody>().isKinematic = false;//----------------------------------------------------------------------------
 			pelikaynnissa = true;
+			staticLiikutus = true;
+			
 		}
 
-		if (BasicDemo.S3 < 80) //(pelikaynnissa == true && Input.GetKey("a")) 
+		if /*(BasicDemo.S3 < 80 && pelikaynnissa == true)*/ (pelikaynnissa == true && Input.GetKey("a")) 
 		{
 			//rb.AddForce(-Vector3.right * 30 * Time.deltaTime);
-			//transform.position += new Vector3(-0.4f, 0, 0);
+			transform.position += new Vector3(-0.4f, 0, 0);
 			transform.rotation = Quaternion.Euler(20.85f, 0, 20);
 
 			int erotusVasen = BasicDemo.S1 - BasicDemo.S3;
-			transform.position += new Vector3(-erotusVasen / 100f, 0, 0);
+			//----transform.position += new Vector3(-erotusVasen / 100f, 0, 0) * Time.deltaTime;
 		}
 		else
 		{
 			transform.rotation = Quaternion.Euler(20.85f, 0, 0);
 		}
 
-		if (BasicDemo.S1 < 80) //(pelikaynnissa == true &&Input.GetKey("d"))
+		if /*(BasicDemo.S1 < 80 && pelikaynnissa == true)*/ (pelikaynnissa == true &&Input.GetKey("d"))
 		{
 			//rb.AddForce(Vector3.right * 30 * Time.deltaTime);
-			//transform.position += new Vector3(0.4f, 0, 0);
+			transform.position += new Vector3(0.4f, 0, 0);
 			transform.rotation = Quaternion.Euler(20.85f, 0, -20);
 
 			int erotusOikea = BasicDemo.S3 - BasicDemo.S1;
-			transform.position += new Vector3(erotusOikea / 100f, 0, 0);
+			//-----transform.position += new Vector3(erotusOikea / 100f, 0, 0) * Time.deltaTime;
 		}
 		
 		

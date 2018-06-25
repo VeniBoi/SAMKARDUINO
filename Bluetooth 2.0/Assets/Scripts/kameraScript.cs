@@ -20,6 +20,8 @@ public class kameraScript : MonoBehaviour
 	public GameObject lumisotaPeli;
 	public GameObject lumisotaReadyPanel;
 	public GameObject maalitaulu;
+	public GameObject restartPanel;
+	public GameObject panel2;
 
 
 	public GameObject finalPanel;
@@ -49,6 +51,8 @@ public class kameraScript : MonoBehaviour
 	public float timer;
 	public bool canCount;
 
+	public float spawnTime;
+
 	public Transform[] spawnpoints;
 
 	public void maalitauluSpawn()
@@ -61,11 +65,17 @@ public class kameraScript : MonoBehaviour
 
 	}
 
+	public void timerChange(float newSpawnTime)
+	{
+		spawnTime = newSpawnTime;
+	}
+
 
 	// Use this for initialization
 	void Start()
 	{
-		InvokeRepeating("maalitauluSpawn", 0.5f, 2f);
+		spawnTime = 2f;
+		InvokeRepeating("maalitauluSpawn", 0.5f, spawnTime);
 
 		
 		timer = mainTimer;
@@ -154,17 +164,34 @@ public class kameraScript : MonoBehaviour
 
 	public void aloitaAlusta()
 	{
-		finalPanel.SetActive(false);
-		playPaneeli.SetActive(true);
-		canCount = false;
-		aikaLoppu = true;
-		mainTimer = 10f;
-		lumisotaPisteet = 0;
-		totalPoints = 0;
-		lumisotaPisteetText.text = "Score: " + lumisotaPisteet.ToString();
-		timer = mainTimer;
-		GameObject.Find("Pelaaja").GetComponent<hyppyScript>().Restart();
-		//GameObject.Find("Pelaaja2").GetComponent<lumilautaScript>().Restart();
+		restartPanel.SetActive(true);
+		Time.timeScale = 0f;
+	}
+
+	public void restartYes()
+	{
+			lumilautaKohdalla = false;
+			kameraKohdalla = false;
+			transform.position = new Vector3(990, 817, 35);
+			finalPanel.SetActive(false);
+			playPaneeli.SetActive(true);
+			canCount = false;
+			aikaLoppu = true;
+			mainTimer = 30f;
+			lumisotaPisteet = 0;
+			lumisotaPisteetText.text = "Score: " + lumisotaPisteet.ToString();
+			timer = mainTimer;
+			GameObject.Find("Pelaaja").GetComponent<hyppyScript>().Restart();
+			Time.timeScale = 1f;
+			restartPanel.SetActive(false);
+			//GameObject.Find("Pelaaja2").GetComponent<lumilautaScript>().Restart();
+
+	}
+
+	public void restartNo()
+	{
+		restartPanel.SetActive(false);
+		Time.timeScale = 1f;
 	}
 
 	public void sammutus()
@@ -190,7 +217,8 @@ public class kameraScript : MonoBehaviour
 	public void paneelit()
 	{
 		playPaneeli.SetActive(false);
-		restartButton.SetActive(true);
+		//restartButton.SetActive(true);
+		panel2.SetActive(true);
 		menuNappi.SetActive(true);
 	}
 
