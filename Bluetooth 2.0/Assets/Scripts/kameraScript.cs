@@ -22,6 +22,7 @@ public class kameraScript : MonoBehaviour
 	public GameObject maalitaulu;
 	public GameObject restartPanel;
 	public GameObject panel2;
+	public GameObject oikeaylaRestart;
 
 
 	public GameObject finalPanel;
@@ -252,6 +253,7 @@ public class kameraScript : MonoBehaviour
 		lumisotaReadyPanel.SetActive(false);
 		lumisotaPeli.SetActive(true);
 		canCount = true;
+		oikeaylaRestart.SetActive(false);
 	}
 
 	public void maalitauluunOsuttu()
