@@ -4,23 +4,36 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using UnityEngine.UI;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Security;
 
 public class DATA : MonoBehaviour {
 
 	static public string nimi, readPath;
 	public InputField input;
-	public GameObject finalPanel, playPanel, restartButton;
+	public GameObject finalPanel, playPanel, restartButton, datapanel;
 
 	[SerializeField]
 	private GameObject buttonTemplate;
 
 	public void createText()
 	{
+
 		
+		DirectoryInfo dirInf = new DirectoryInfo(Application.persistentDataPath + "/" + "datakansio");
+
+		if (!dirInf.Exists)
+		{
+			Debug.Log("Creating subdirectory");
+			dirInf.Create();
+		}
+
 		//Path of the file
 		//Tähän henkilön nimi, ja sen perään .txt
-		string path = Application.dataPath + "/datakansio/" + input.text + ".txt";	
-		
+		string path = Application.persistentDataPath + "/datakansio/" + input.text + ".txt";
+
+
 		//Content of file
 		string content = kameraScript.totalPoints.ToString() + "," + System.DateTime.Now + "\n";
 
@@ -32,8 +45,10 @@ public class DATA : MonoBehaviour {
 		kameraScript.totalPoints = 0;
 		input.text = "";
 		finalPanel.SetActive(false);
-		playPanel.SetActive(true);
+		//playPanel.SetActive(true);
 		restartButton.SetActive(true);
+		datapanel.SetActive(true);
+		Debug.Log(path);
 	}
 
 
@@ -42,7 +57,7 @@ public class DATA : MonoBehaviour {
 	{
 
 		//1---------------Haetaan tiedostot nimella------------------------------//
-		string myPath = Application.dataPath + "/datakansio/";
+		string myPath = Application.persistentDataPath + "/datakansio/";
 		DirectoryInfo dir = new DirectoryInfo(myPath);
 		FileInfo[] info = dir.GetFiles("*.*");
 		foreach (FileInfo f in info)

@@ -6,9 +6,9 @@ using System.IO;
 
 public class buttonListButton : MonoBehaviour {
 
-
-	public Text myText;
-	string nimi;
+	
+	public Text myText, emailnimi;
+	public static string nimi;
 
 
 	public void SetText(string textString)
@@ -20,9 +20,11 @@ public class buttonListButton : MonoBehaviour {
 	public void onClick()
 	{
 		//2----------------Avataan tiedosto henkilon nimella, joka on haettu alempana------------------------//
-
-		string path = Application.dataPath + "/datakansio/" + nimi + ".txt";
+		nimi = myText.text;
+		string path = Application.persistentDataPath + "/datakansio/" + nimi + ".txt";
 		string[] lines = File.ReadAllLines(path);
+		emailnimi.text = "File chosen: " + nimi;
+		mailScript.nameChosen = true;
 
 		foreach (string pisteet in lines)
 		{
