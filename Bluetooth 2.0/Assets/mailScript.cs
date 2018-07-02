@@ -51,7 +51,7 @@ public class mailScript : MonoBehaviour {
 			if (nameChosen == true)
 			{
 				Attachment attachment = null;
-				attachment = new Attachment(Application.persistentDataPath + "/datakansio/" + buttonListButton.nimi + ".txt");
+				attachment = new Attachment(Application.persistentDataPath + "/datakansio/" + buttonListButton.nimi + ".csv");
 				mail.Attachments.Add(attachment);
 			}
 

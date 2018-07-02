@@ -12,10 +12,19 @@ public class DATA : MonoBehaviour {
 
 	static public string nimi, readPath;
 	public InputField input;
-	public GameObject finalPanel, playPanel, restartButton, datapanel;
+	public GameObject finalPanel, playPanel, restartButton, datapanel, datanappi, backNappi;
 
 	[SerializeField]
 	private GameObject buttonTemplate;
+
+	public void backButton()
+	{
+		datanappi.SetActive(true);
+		backNappi.SetActive(false);
+		restartButton.SetActive(true);
+		playPanel.SetActive(true);
+		datapanel.SetActive(false);
+	}
 
 	public void createText()
 	{
@@ -29,10 +38,18 @@ public class DATA : MonoBehaviour {
 			dirInf.Create();
 		}
 
+		
+		
+
 		//Path of the file
 		//Tähän henkilön nimi, ja sen perään .txt
-		string path = Application.persistentDataPath + "/datakansio/" + input.text + ".txt";
+		string path = Application.persistentDataPath + "/datakansio/" + input.text + ".csv";
 
+		if (!File.Exists(path))
+		{
+			File.WriteAllText(path, "Score,Date" + "\n");
+
+		}
 
 		//Content of file
 		string content = kameraScript.totalPoints.ToString() + "," + System.DateTime.Now + "\n";
@@ -45,17 +62,14 @@ public class DATA : MonoBehaviour {
 		kameraScript.totalPoints = 0;
 		input.text = "";
 		finalPanel.SetActive(false);
-		//playPanel.SetActive(true);
+		playPanel.SetActive(true);
 		restartButton.SetActive(true);
-		datapanel.SetActive(true);
 		Debug.Log(path);
+		datanappi.SetActive(true);
 	}
 
-
-	// Use this for initialization
-	void Start()
+	public void dataSivu()
 	{
-
 		//1---------------Haetaan tiedostot nimella------------------------------//
 		string myPath = Application.persistentDataPath + "/datakansio/";
 		DirectoryInfo dir = new DirectoryInfo(myPath);
@@ -69,7 +83,8 @@ public class DATA : MonoBehaviour {
 			string[] nameSplitted = fileName.Split('.'); // ["juho", "txt"] || ["juho", "txt", "meta"]
 			string ending = nameSplitted[nameSplitted.Length - 1]; // 2 - 1 == 1 || 3 - 1 == 2
 
-			if (ending.Equals("meta")) {
+			if (ending.Equals("meta"))
+			{
 				continue;
 			}
 			// lisäää nimi listaan asd
@@ -83,8 +98,20 @@ public class DATA : MonoBehaviour {
 
 			button.transform.SetParent(buttonTemplate.transform.parent, false);
 
+			datapanel.SetActive(true);
+			playPanel.SetActive(false);
+			datanappi.SetActive(false);
+			backNappi.SetActive(true);
+			restartButton.SetActive(false);
+			
 
 		}
+	}
+	// Use this for initialization
+	void Start()
+	{
+
+		
 
 		
 		

@@ -22,7 +22,7 @@ public class kameraScript : MonoBehaviour
 	public GameObject maalitaulu;
 	public GameObject restartPanel;
 	public GameObject panel2;
-	public GameObject oikeaylaRestart;
+	public GameObject oikeaylaRestart, datanappi;
 
 
 	public GameObject finalPanel;
@@ -185,6 +185,8 @@ public class kameraScript : MonoBehaviour
 			GameObject.Find("Pelaaja").GetComponent<hyppyScript>().Restart();
 			Time.timeScale = 1f;
 			restartPanel.SetActive(false);
+			datanappi.SetActive(true);
+			panel2.SetActive(false);
 			//GameObject.Find("Pelaaja2").GetComponent<lumilautaScript>().Restart();
 
 	}
@@ -221,6 +223,8 @@ public class kameraScript : MonoBehaviour
 		//restartButton.SetActive(true);
 		panel2.SetActive(true);
 		menuNappi.SetActive(true);
+		datanappi.SetActive(false);
+
 	}
 
 

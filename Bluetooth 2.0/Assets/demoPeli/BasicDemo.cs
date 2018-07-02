@@ -51,6 +51,7 @@ public class BasicDemo : MonoBehaviour {
 	public GameObject playPaneeli;
 	public GameObject connectPaneeli;
 	public GameObject hakuPaneeli;
+	public GameObject restartNappi;
 
 	public bool onYhteys;
 
@@ -166,7 +167,7 @@ public class BasicDemo : MonoBehaviour {
 
 				onYhteys = true;
 				yhdistetaan.text = "Connected!";
-				StartCoroutine(playPaneeliNakyy());
+				playPaneeliNakyy();
 				arduinoData = content;
 
 				string str = arduinoData;               //Asetetaan muuttujan str arvo (Eli laitetaan sille arvoksi se mitä arduino lähettää)
@@ -203,7 +204,12 @@ public class BasicDemo : MonoBehaviour {
 
 				setString();
 				
-			}		
+			}
+
+			if (playPaneeli.activeInHierarchy)
+			{
+				restartNappi.SetActive(true);
+			}
 			
 		}
 	}
@@ -236,6 +242,7 @@ public class BasicDemo : MonoBehaviour {
 	public void hakuTakas()
 	{
 		connectPaneeli.SetActive(false);
+		playPaneeli.SetActive(false);
 		hakuPaneeli.SetActive(true);
 	}
 
@@ -246,10 +253,9 @@ public class BasicDemo : MonoBehaviour {
 		yhdistetaan.text = "Connecting to: " + device.MacAddress;
 		connect();
 	}
-	
-	IEnumerator playPaneeliNakyy()
+
+	public void playPaneeliNakyy()
 	{
-		yield return new WaitForSeconds(2);
 		connectPaneeli.SetActive(false);
 		playPaneeli.SetActive(true);
 	}

@@ -101,31 +101,33 @@ public class lumilautaScript : MonoBehaviour {
 			
 		}
 
-		if /*(BasicDemo.S3 < 80 && pelikaynnissa == true)*/ (pelikaynnissa == true && Input.GetKey("a")) 
+		if (BasicDemo.S3 < 80 && pelikaynnissa == true) /*(pelikaynnissa == true && Input.GetKey("a"))*/ 
 		{
-			//rb.AddForce(-Vector3.right * 30 * Time.deltaTime);
-			transform.position += new Vector3(-0.4f, 0, 0);
+			
+			//transform.position += new Vector3(-0.4f, 0, 0);
 			transform.rotation = Quaternion.Euler(20.85f, 0, 20);
 
 			int erotusVasen = BasicDemo.S1 - BasicDemo.S3;
-			//----transform.position += new Vector3(-erotusVasen / 100f, 0, 0) * Time.deltaTime;
+			transform.position += new Vector3(-erotusVasen / 10f, 0, 0) * Time.deltaTime;
+			//rb.AddForce(-Vector3.right * -erotusVasen / 10f * Time.deltaTime);
 		}
 		else
 		{
 			transform.rotation = Quaternion.Euler(20.85f, 0, 0);
 		}
 
-		if /*(BasicDemo.S1 < 80 && pelikaynnissa == true)*/ (pelikaynnissa == true &&Input.GetKey("d"))
+		if (BasicDemo.S1 < 80 && pelikaynnissa == true) /*(pelikaynnissa == true &&Input.GetKey("d"))*/
 		{
 			//rb.AddForce(Vector3.right * 30 * Time.deltaTime);
-			transform.position += new Vector3(0.4f, 0, 0);
+			//transform.position += new Vector3(0.4f, 0, 0);
 			transform.rotation = Quaternion.Euler(20.85f, 0, -20);
 
 			int erotusOikea = BasicDemo.S3 - BasicDemo.S1;
-			//-----transform.position += new Vector3(erotusOikea / 100f, 0, 0) * Time.deltaTime;
+			transform.position += new Vector3(erotusOikea / 10f, 0, 0) * Time.deltaTime;
+			//rb.AddForce(Vector3.right * erotusOikea / 10f * Time.deltaTime);
 		}
-		
-		
+
+
 		/*
 		//LIIKUTUS OIKEALLE! ----------------------VVVVV----------------------
 
@@ -140,7 +142,7 @@ public class lumilautaScript : MonoBehaviour {
 		{
 			rb.AddForce(-Vector3.right * 15);
 		}
-		*/	
+		*/
 	}
 
 	

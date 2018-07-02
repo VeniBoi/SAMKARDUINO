@@ -21,7 +21,7 @@ public class buttonListButton : MonoBehaviour {
 	{
 		//2----------------Avataan tiedosto henkilon nimella, joka on haettu alempana------------------------//
 		nimi = myText.text;
-		string path = Application.persistentDataPath + "/datakansio/" + nimi + ".txt";
+		string path = Application.persistentDataPath + "/datakansio/" + nimi + ".csv";
 		string[] lines = File.ReadAllLines(path);
 		emailnimi.text = "File chosen: " + nimi;
 		mailScript.nameChosen = true;

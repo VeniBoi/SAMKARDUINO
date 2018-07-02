@@ -97,7 +97,7 @@ public class hyppyScript : MonoBehaviour
 
 
 
-		if (Input.GetKeyDown("space") && hyppyAlueella == true) /*if(BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true)*/ 
+		if /*(Input.GetKeyDown("space") && hyppyAlueella == true)*/ (BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true)
 		{
 
 			//rb.AddForce(Vector3.forward * thrust * 2);
