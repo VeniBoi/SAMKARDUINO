@@ -51,7 +51,7 @@ public class BasicDemo : MonoBehaviour {
 	public GameObject playPaneeli;
 	public GameObject connectPaneeli;
 	public GameObject hakuPaneeli;
-	public GameObject restartNappi;
+	public GameObject restartNappi, dataPaneeli1, dataPaneeli2, easyConnectPanel;
 
 	public bool onYhteys;
 
@@ -148,9 +148,16 @@ public class BasicDemo : MonoBehaviour {
 	 * Just to make things simple
 	 */
 	void Update() {
-
+		if (dataPaneeli1.activeInHierarchy || dataPaneeli2.activeInHierarchy ||easyConnectPanel.activeInHierarchy)
+		{
+			restartNappi.SetActive(false);
+		}
+		else
+		{
+			restartNappi.SetActive(true);
+		}
 		//device.MacAddress = "98:D3:31:F5:29:55";
-		
+
 		if (device.IsReading) {
 
 			

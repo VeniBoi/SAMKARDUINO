@@ -6,7 +6,7 @@ public class kerattavaTuhous : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		lumilautaScript.pisteetLumilauta = 0f;
+		lumilautaScript.pisteetLumilauta = 0;
 	}
 	
 	// Update is called once per frame
@@ -19,7 +19,7 @@ public class kerattavaTuhous : MonoBehaviour {
 
 		if (other.gameObject.CompareTag("pelaaja2"))
 		{
-			lumilautaScript.pisteetLumilauta = lumilautaScript.pisteetLumilauta + 50f;
+			lumilautaScript.pisteetLumilauta = lumilautaScript.pisteetLumilauta + 50;
 			Debug.Log("No meneekö se rikki?");
 			Destroy(this.gameObject);
 		}

@@ -148,7 +148,7 @@ public class hyppyScript : MonoBehaviour
 		paneeli.SetActive(true);
 		restartButton.SetActive(false);
 		hyppyPisteet = 0;
-		hyppyPisteetText.text = "Pisteet: " + hyppyPisteet.ToString("F0");
+		hyppyPisteetText.text = "Score: " + hyppyPisteet.ToString("F0");
 		AnimaatioScript.animaatio1 = false;
 		AnimaatioScript.animaatio2 = true;
 		AnimaatioScript.animaatio3 = false;
@@ -243,7 +243,8 @@ public class hyppyScript : MonoBehaviour
 		if (other.gameObject.CompareTag("stoppiTriggerForce"))
 		{
 			StartCoroutine(seuraavataso());
-			kameraScript.totalPoints = kameraScript.totalPoints + hyppyPisteet;
+			int iValue = Mathf.RoundToInt(hyppyPisteet);
+			kameraScript.totalPoints = kameraScript.totalPoints + iValue;
 			totalpoints.text = "Total Points: " + kameraScript.totalPoints.ToString("F0");
 			Debug.Log(kameraScript.totalPoints);
 			rb.AddForce(-Vector3.forward * 30 * 30);

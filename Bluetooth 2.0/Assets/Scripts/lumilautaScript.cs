@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class lumilautaScript : MonoBehaviour {
 
-	static public float pisteetLumilauta;
+	static public int pisteetLumilauta;
 	public Text pisteetLumilautaText;
 	public Text totalPoints;
 	public GameObject standupPanel;
@@ -34,7 +34,7 @@ public class lumilautaScript : MonoBehaviour {
 		//transform.eulerAngles = new Vector3(16.548f, 0f, 0f);
 		transform.position = paikka;
 		pisteetLumilauta = 0;
-		pisteetLumilautaText.text = "Pisteet: " + pisteetLumilauta.ToString("F0");
+		pisteetLumilautaText.text = "Score: " + pisteetLumilauta.ToString("F0");
 		rb.constraints = RigidbodyConstraints.None;
 		rb.constraints = RigidbodyConstraints.FreezePositionX;
 		rb.constraints = RigidbodyConstraints.FreezeRotationX;
@@ -77,7 +77,7 @@ public class lumilautaScript : MonoBehaviour {
 		
 
 
-		pisteetLumilautaText.text = "Pisteet: " + pisteetLumilauta.ToString("F0");
+		pisteetLumilautaText.text = "Score: " + pisteetLumilauta.ToString("F0");
 		
 		if (staticLiikutus)
 		{
@@ -108,7 +108,7 @@ public class lumilautaScript : MonoBehaviour {
 			transform.rotation = Quaternion.Euler(20.85f, 0, 20);
 
 			int erotusVasen = BasicDemo.S1 - BasicDemo.S3;
-			transform.position += new Vector3(-erotusVasen / 10f, 0, 0) * Time.deltaTime;
+			transform.position += new Vector3(-erotusVasen / 100f, 0, 0);
 			//rb.AddForce(-Vector3.right * -erotusVasen / 10f * Time.deltaTime);
 		}
 		else
@@ -123,7 +123,7 @@ public class lumilautaScript : MonoBehaviour {
 			transform.rotation = Quaternion.Euler(20.85f, 0, -20);
 
 			int erotusOikea = BasicDemo.S3 - BasicDemo.S1;
-			transform.position += new Vector3(erotusOikea / 10f, 0, 0) * Time.deltaTime;
+			transform.position += new Vector3(erotusOikea / 100f, 0, 0);
 			//rb.AddForce(Vector3.right * erotusOikea / 10f * Time.deltaTime);
 		}
 

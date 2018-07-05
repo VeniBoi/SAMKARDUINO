@@ -21,16 +21,16 @@ public class kameraScript : MonoBehaviour
 	public GameObject lumisotaReadyPanel;
 	public GameObject maalitaulu;
 	public GameObject restartPanel;
-	public GameObject panel2;
+	public GameObject panel2, seuraavaSceneLumilautailu;
 	public GameObject oikeaylaRestart, datanappi;
 
 
 	public GameObject finalPanel;
 	public Text totalPointsText;
 
-	static public float totalPoints;
+	static public int totalPoints;
 
-	static public float lumisotaPisteet;
+	static public int lumisotaPisteet;
 	public Text lumisotaPisteetText;
 
 
@@ -99,7 +99,12 @@ public class kameraScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-	
+
+		if (Input.GetKeyDown("p"))
+		{
+			totalPoints = totalPoints + 10;
+		}
+
 		if (canCount == false)
 		{
 			Destroy(GameObject.FindGameObjectWithTag("maalitaulu"));
@@ -187,6 +192,7 @@ public class kameraScript : MonoBehaviour
 			restartPanel.SetActive(false);
 			datanappi.SetActive(true);
 			panel2.SetActive(false);
+			seuraavaSceneLumilautailu.SetActive(false);
 			//GameObject.Find("Pelaaja2").GetComponent<lumilautaScript>().Restart();
 
 	}

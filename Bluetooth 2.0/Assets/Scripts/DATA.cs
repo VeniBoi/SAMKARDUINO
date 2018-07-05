@@ -12,24 +12,68 @@ public class DATA : MonoBehaviour {
 
 	static public string nimi, readPath;
 	public InputField input;
-	public GameObject finalPanel, playPanel, restartButton, datapanel, datanappi, backNappi;
+	public GameObject finalPanel, playPanel, restartButton, datapanel, datanappi, backNappi, areyousurepanel;
+	public Text deletedText;
 
 	[SerializeField]
 	private GameObject buttonTemplate;
 
+
+	public void deleteFilesYES()
+	{
+		string myPath = Application.persistentDataPath + "/datakansio/";
+		DirectoryInfo dir = new DirectoryInfo(myPath);
+		FileInfo[] info = dir.GetFiles("*.*");
+		foreach (FileInfo f in info)
+		{
+			string z = f.ToString();
+			string fileName = Path.GetFileName(z);
+			File.Delete(Application.persistentDataPath + "/datakansio/" + fileName);
+
+		}
+		StartCoroutine(deleteText());
+
+	}
+
+	public void deleteFilesNO()
+	{
+		areyousurepanel.SetActive(false);
+	}
+
+	public void deletePanel()
+	{
+		areyousurepanel.SetActive(true);
+	}
+
 	public void backButton()
 	{
+
+
+		GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("nimiNappi");
+
+		for (var i = 0; i < gameObjects.Length; i++)
+		{
+			if(gameObjects[i].activeInHierarchy)
+			{
+				Destroy(gameObjects[i]);
+			}
+
+			
+		}
+
 		datanappi.SetActive(true);
 		backNappi.SetActive(false);
 		restartButton.SetActive(true);
 		playPanel.SetActive(true);
 		datapanel.SetActive(false);
+		
+
+		
 	}
 
 	public void createText()
 	{
 
-		
 		DirectoryInfo dirInf = new DirectoryInfo(Application.persistentDataPath + "/" + "datakansio");
 
 		if (!dirInf.Exists)
@@ -38,21 +82,17 @@ public class DATA : MonoBehaviour {
 			dirInf.Create();
 		}
 
-		
-		
-
 		//Path of the file
-		//Tähän henkilön nimi, ja sen perään .txt
 		string path = Application.persistentDataPath + "/datakansio/" + input.text + ".csv";
 
 		if (!File.Exists(path))
 		{
-			File.WriteAllText(path, "Score,Date" + "\n");
+			File.WriteAllText(path, "Time,Date" + "\n");
 
 		}
 
 		//Content of file
-		string content = kameraScript.totalPoints.ToString() + "," + System.DateTime.Now + "\n";
+		string content = kavelyTestiScript.testValuesAdded.ToString("F2") + "," + System.DateTime.Now + "\n";
 
 		//Add some text to the file
 		File.AppendAllText(path, content);
@@ -70,6 +110,12 @@ public class DATA : MonoBehaviour {
 
 	public void dataSivu()
 	{
+
+		datapanel.SetActive(true);
+		playPanel.SetActive(false);
+		datanappi.SetActive(false);
+		backNappi.SetActive(true);
+		restartButton.SetActive(false);
 		//1---------------Haetaan tiedostot nimella------------------------------//
 		string myPath = Application.persistentDataPath + "/datakansio/";
 		DirectoryInfo dir = new DirectoryInfo(myPath);
@@ -98,13 +144,6 @@ public class DATA : MonoBehaviour {
 
 			button.transform.SetParent(buttonTemplate.transform.parent, false);
 
-			datapanel.SetActive(true);
-			playPanel.SetActive(false);
-			datanappi.SetActive(false);
-			backNappi.SetActive(true);
-			restartButton.SetActive(false);
-			
-
 		}
 	}
 	// Use this for initialization
@@ -119,5 +158,13 @@ public class DATA : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	IEnumerator deleteText()
+	{
+		deletedText.text = "All Files Deleted!";
+		yield return new WaitForSeconds(2.0f);
+		areyousurepanel.SetActive(false);
+		deletedText.text = "Are you sure you want to delete all files?";
 	}
 }
