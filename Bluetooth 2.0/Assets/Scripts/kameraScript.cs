@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class kameraScript : MonoBehaviour
 {
-	
+	Quaternion VisualisaatioRotTarget = Quaternion.Euler(25.5f, 28.8f, 0f);
 	public float transitionDuration = 2.5f;
 	public Transform target;
+	public Transform visualisaatioTarget;
 	public GameObject laskuri;
 	public GameObject playPaneeli;
 	public GameObject restartButton;
@@ -22,7 +23,7 @@ public class kameraScript : MonoBehaviour
 	public GameObject maalitaulu;
 	public GameObject restartPanel;
 	public GameObject panel2, seuraavaSceneLumilautailu;
-	public GameObject oikeaylaRestart, datanappi;
+	public GameObject oikeaylaRestart, datanappi, visualisaatioNappiBack;
 
 
 	public GameObject finalPanel;
@@ -279,6 +280,24 @@ public class kameraScript : MonoBehaviour
 		menuNappi.SetActive(true);
 		playPaneeli.SetActive(true);
 		searchMenu.SetActive(true);
+	}
+
+	public void Visualisaatioon()
+	{
+		transform.position = new Vector3(228.3f, 14.5f, -195.5f);
+		Camera.main.transform.rotation = Quaternion.Euler(25.5f, 28.8f, 0f);
+		playPaneeli.SetActive(false);
+		visualisaatioNappiBack.SetActive(true);
+		datanappi.SetActive(false);
+	}
+
+	public void PoisVisualisaatiosta()
+	{
+		transform.position = new Vector3(1102f, 1121f, -201f);
+		Camera.main.transform.rotation = Quaternion.Euler(25.5f, 0f, 0f);
+		playPaneeli.SetActive(true);
+		visualisaatioNappiBack.SetActive(false);
+		datanappi.SetActive(true);
 	}
 
 	IEnumerator Transition()

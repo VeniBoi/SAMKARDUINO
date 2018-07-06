@@ -50,7 +50,7 @@ public class BasicDemo : MonoBehaviour {
 
 	public GameObject playPaneeli;
 	public GameObject connectPaneeli;
-	public GameObject hakuPaneeli;
+	public GameObject hakuPaneeli, visualisationPanel;
 	public GameObject restartNappi, dataPaneeli1, dataPaneeli2, easyConnectPanel;
 
 	public bool onYhteys;
@@ -148,7 +148,7 @@ public class BasicDemo : MonoBehaviour {
 	 * Just to make things simple
 	 */
 	void Update() {
-		if (dataPaneeli1.activeInHierarchy || dataPaneeli2.activeInHierarchy ||easyConnectPanel.activeInHierarchy)
+		if (dataPaneeli1.activeInHierarchy || dataPaneeli2.activeInHierarchy || easyConnectPanel.activeInHierarchy || visualisationPanel.activeInHierarchy)
 		{
 			restartNappi.SetActive(false);
 		}
