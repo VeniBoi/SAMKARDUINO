@@ -5,10 +5,8 @@ using UnityEngine.UI;
 
 public class kameraScript : MonoBehaviour
 {
-	Quaternion VisualisaatioRotTarget = Quaternion.Euler(25.5f, 28.8f, 0f);
 	public float transitionDuration = 2.5f;
 	public Transform target;
-	public Transform visualisaatioTarget;
 	public GameObject laskuri;
 	public GameObject playPaneeli;
 	public GameObject restartButton;
@@ -23,7 +21,7 @@ public class kameraScript : MonoBehaviour
 	public GameObject maalitaulu;
 	public GameObject restartPanel;
 	public GameObject panel2, seuraavaSceneLumilautailu;
-	public GameObject oikeaylaRestart, datanappi, visualisaatioNappiBack;
+	public GameObject oikeaylaRestart, datanappi, visualisaatioNappiBack, visualisaatioSetit;
 
 
 	public GameObject finalPanel;
@@ -194,6 +192,7 @@ public class kameraScript : MonoBehaviour
 			datanappi.SetActive(true);
 			panel2.SetActive(false);
 			seuraavaSceneLumilautailu.SetActive(false);
+			restartButton.SetActive(false);
 			//GameObject.Find("Pelaaja2").GetComponent<lumilautaScript>().Restart();
 
 	}
@@ -227,10 +226,11 @@ public class kameraScript : MonoBehaviour
 	public void paneelit()
 	{
 		playPaneeli.SetActive(false);
-		//restartButton.SetActive(true);
+		restartButton.SetActive(true);
 		panel2.SetActive(true);
 		menuNappi.SetActive(true);
 		datanappi.SetActive(false);
+		
 
 	}
 
@@ -284,11 +284,12 @@ public class kameraScript : MonoBehaviour
 
 	public void Visualisaatioon()
 	{
-		transform.position = new Vector3(228.3f, 14.5f, -195.5f);
+		transform.position = new Vector3(230, 25, -222);
 		Camera.main.transform.rotation = Quaternion.Euler(25.5f, 28.8f, 0f);
 		playPaneeli.SetActive(false);
 		visualisaatioNappiBack.SetActive(true);
 		datanappi.SetActive(false);
+		visualisaatioSetit.SetActive(true);
 	}
 
 	public void PoisVisualisaatiosta()
@@ -298,6 +299,7 @@ public class kameraScript : MonoBehaviour
 		playPaneeli.SetActive(true);
 		visualisaatioNappiBack.SetActive(false);
 		datanappi.SetActive(true);
+		visualisaatioSetit.SetActive(false);
 	}
 
 	IEnumerator Transition()

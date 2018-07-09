@@ -148,14 +148,7 @@ public class BasicDemo : MonoBehaviour {
 	 * Just to make things simple
 	 */
 	void Update() {
-		if (dataPaneeli1.activeInHierarchy || dataPaneeli2.activeInHierarchy || easyConnectPanel.activeInHierarchy || visualisationPanel.activeInHierarchy)
-		{
-			restartNappi.SetActive(false);
-		}
-		else
-		{
-			restartNappi.SetActive(true);
-		}
+		
 		//device.MacAddress = "98:D3:31:F5:29:55";
 
 		if (device.IsReading) {
@@ -211,13 +204,7 @@ public class BasicDemo : MonoBehaviour {
 
 				setString();
 				
-			}
-
-			if (playPaneeli.activeInHierarchy)
-			{
-				restartNappi.SetActive(true);
-			}
-			
+			}		
 		}
 	}
 

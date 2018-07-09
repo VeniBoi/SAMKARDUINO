@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SittingPressureScript8 : MonoBehaviour
 {
 
-	float moveValue;
+	int moveValue;
 	Vector3 startposition;
 
+	public Text text;
 	// Use this for initialization
 	void Start()
 	{
@@ -19,13 +21,15 @@ public class SittingPressureScript8 : MonoBehaviour
 	{
 		moveValue = BasicDemo.S8;
 
-		if (moveValue > 0)
+		if (Input.GetKeyDown("d"))
 		{
-			transform.position = new Vector3(0, -moveValue/32, 0);
+			transform.position = new Vector3(transform.position.x, 5, transform.position.z);
 		}
-		else
+		else if (Input.GetKeyDown("f"))
 		{
-			this.transform.position = startposition;
+			transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 		}
+
+		text.text = "Koordinaatti 8: " + transform.position.y;
 	}
 }
