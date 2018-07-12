@@ -46,7 +46,14 @@ public class kavelyTestiScript : MonoBehaviour {
 			runningimage.SetActive(true);
 			runningText.enabled = true;
 			kierrosText.enabled = true;
-			kierrosText.text = "Test Cycle no." + testiKierros;
+			if(LanguageScript.Lang == 1)
+			{
+				kierrosText.text = "Koe Sykli no." + testiKierros;
+			}
+			else
+			{
+				kierrosText.text = "Test Cycle no." + testiKierros;
+			}
 			aikaText.enabled = false;
 			finishedText.enabled = false;
 			canCount = true;
@@ -68,14 +75,28 @@ public class kavelyTestiScript : MonoBehaviour {
 			runningText.enabled = false;
 			kierrosText.enabled = false;
 			finishedText.enabled = true;
-			finishedText.text = "Finished Cycle no." + testiKierros;
+			if (LanguageScript.Lang == 1)
+			{
+				finishedText.text = "Päätetty Sykli no." + testiKierros;
+			}
+			else
+			{
+				finishedText.text = "Finished Cycle no." + testiKierros;
+			}
 			canCount = false;
 			testiKierros++;
 			testValue1 = timer;
 			timer = 0;
 			Debug.Log("Eka kierros ohi " + testValue1);
 			aikaText.enabled = true;
-			aikaText.text = "Time: " + testValue1.ToString("F0") + "s";
+			if (LanguageScript.Lang == 1)
+			{
+				aikaText.text = "Aika: " + testValue1.ToString("F0") + "s";
+			}
+			else
+			{
+				aikaText.text = "Time: " + testValue1.ToString("F0") + "s";
+			}
 			testinappiPainettu = true;
 		}
 
@@ -85,14 +106,28 @@ public class kavelyTestiScript : MonoBehaviour {
 			runningText.enabled = false;
 			kierrosText.enabled = false;
 			finishedText.enabled = true;
-			finishedText.text = "Finished Cycle no." + testiKierros;
+			if (LanguageScript.Lang == 1)
+			{
+				finishedText.text = "Päätetty Sykli no." + testiKierros;
+			}
+			else
+			{
+				finishedText.text = "Finished Cycle no." + testiKierros;
+			}
 			canCount = false;
 			testiKierros++;
 			testValue2 = timer;
 			timer = 0;
 			Debug.Log("Toka kierros ohi " + testValue2);
 			aikaText.enabled = true;
-			aikaText.text = "Time: " + testValue2.ToString("F0") + "s";
+			if (LanguageScript.Lang == 1)
+			{
+				aikaText.text = "Aika: " + testValue2.ToString("F0") + "s";
+			}
+			else
+			{
+				aikaText.text = "Time: " + testValue2.ToString("F0") + "s";
+			}
 			testinappiPainettu = true;
 		}
 

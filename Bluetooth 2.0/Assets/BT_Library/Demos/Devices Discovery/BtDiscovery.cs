@@ -137,10 +137,25 @@ public class BtDiscovery : MonoBehaviour
 	IEnumerator Haku()
 	{
 		BluetoothAdapter.refreshDiscovery();
-		searchingText.text = "Searching...";
+		if(LanguageScript.Lang == 1)
+		{
+			searchingText.text = "Etsit‰‰n...";
+		}
+		else
+		{
+			searchingText.text = "Searching...";
+		}
 		pyorii = true;
 		yield return new WaitForSeconds(10f);
-		searchingText.text = "Search";
+
+		if (LanguageScript.Lang == 1)
+		{
+			searchingText.text = "Etsi";
+		}
+		else
+		{
+			searchingText.text = "Search";
+		}
 		pyorii = false;
 		//searchPaneeli.SetActive(false);
 		//scrollViewPaneeli.SetActive(true);

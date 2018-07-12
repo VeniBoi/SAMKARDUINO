@@ -244,7 +244,14 @@ public class BasicDemo : MonoBehaviour {
 	{
 		device.MacAddress = BtDiscovery.makki;
 		yield return new WaitForSeconds(0.5f);
-		yhdistetaan.text = "Connecting to: " + device.MacAddress;
+		if(LanguageScript.Lang == 1)
+		{
+			yhdistetaan.text = "Yhdistetään: " + device.MacAddress;
+		}
+		else
+		{
+			yhdistetaan.text = "Connecting to: " + device.MacAddress;
+		}
 		connect();
 	}
 
