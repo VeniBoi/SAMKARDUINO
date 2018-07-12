@@ -5,59 +5,61 @@ using UnityEngine;
 public class spherecastScript : MonoBehaviour
 {
 
-	public LayerMask m_LayerMask;
+	public List<GameObject> cubeobjects = new List<GameObject>();
 
 
-	// Use this for initialization
-	void Start()
+	private void Awake()
 	{
-		//transform.position = new Vector3(transform.position.x, -7f, transform.position.z);
-		
+		cubesList(transform.position, 4f);
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
-
-
-		if (Input.GetKeyDown("r"))
-		{
-			Debug.Log("DABBABABBABABABAB");
-			ExplosionDamage(transform.position, 3f);
-		}
+		transform.position = new Vector3(transform.position.x, -BasicDemo.S0 / 60, transform.position.z);
+		CheckSurrounding();
 	}
 
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.yellow;
-		Gizmos.DrawWireSphere(transform.position, 3f);
+		Gizmos.DrawWireCube(transform.position, transform.localScale * 7.5f);
 	}
 
-	void ExplosionDamage(Vector3 center, float radius)
+	private void cubesList(Vector3 center, float radius)
 	{
-		Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, radius);
+		Collider[] hitColliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale * 4, Quaternion.identity);
 
-		
 		foreach (Collider objekti in hitColliders)
 		{
-			Debug.Log(objekti.name);
 			float distance;
-			
-			distance = (this.transform.position - objekti.transform.position).sqrMagnitude;
-			
-			objekti.transform.position = new Vector3(objekti.transform.position.x, (transform.position.y / distance), objekti.transform.position.z);
-			
-
+			distance = (transform.position - objekti.transform.position).sqrMagnitude;
+			cubeobjects.Add(objekti.gameObject);
+			objekti.GetComponent<distanceVariableScript>().distance = distance;
 		}
+	}
 
-
-		/*int i = 0;
-		while (i < hitColliders.Length)
+	void CheckSurrounding()
+	{
+		foreach (GameObject objekti in cubeobjects)
 		{
-			Debug.Log("Hit : " + hitColliders[i].name);
-			hitColliders[i].GetComponent<Transform>().position = new Vector3(hitColliders[i].transform.position.x, -5, hitColliders[i].transform.position.z);
-			i++;
+			if (objekti.GetComponent<distanceVariableScript>().distance < 2f)
+			{
+				float yArvo = transform.position.y / objekti.GetComponent<distanceVariableScript>().distance;
+				float yourFloat = Mathf.Round(yArvo * 100f) / 100f;
+				objekti.transform.position = new Vector3(objekti.transform.position.x, yourFloat * 2f, objekti.transform.position.z);
+			}
+			else if (objekti.GetComponent<distanceVariableScript>().distance > 2f && objekti.GetComponent<distanceVariableScript>().distance < 4f)
+			{
+				float yArvo = transform.position.y / objekti.GetComponent<distanceVariableScript>().distance;
+				float yourFloat = Mathf.Round(yArvo * 100f) / 100f;
+				objekti.transform.position = new Vector3(objekti.transform.position.x, yourFloat * 4f, objekti.transform.position.z);
+			}
+			else
+			{
+				float yArvo = transform.position.y / objekti.GetComponent<distanceVariableScript>().distance;
+				float yourFloat = Mathf.Round(yArvo * 100f) / 100f;
+				objekti.transform.position = new Vector3(objekti.transform.position.x, yourFloat * 10, objekti.transform.position.z);
+			}
 		}
-		*/
 	}
 }

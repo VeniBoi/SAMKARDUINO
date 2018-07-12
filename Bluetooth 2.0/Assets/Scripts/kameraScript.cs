@@ -284,7 +284,7 @@ public class kameraScript : MonoBehaviour
 
 	public void Visualisaatioon()
 	{
-		transform.position = new Vector3(230, 25, -222);
+		transform.position = new Vector3(-7f, 21f, -53.9f);
 		Camera.main.transform.rotation = Quaternion.Euler(25.5f, 28.8f, 0f);
 		playPaneeli.SetActive(false);
 		visualisaatioNappiBack.SetActive(true);
