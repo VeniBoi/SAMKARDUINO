@@ -34,7 +34,15 @@ public class lumilautaScript : MonoBehaviour {
 		//transform.eulerAngles = new Vector3(16.548f, 0f, 0f);
 		transform.position = paikka;
 		pisteetLumilauta = 0;
-		pisteetLumilautaText.text = "Score: " + pisteetLumilauta.ToString("F0");
+		if(LanguageScript.Lang == 1)
+		{
+			pisteetLumilautaText.text = "Pisteet: " + pisteetLumilauta.ToString("F0");
+		}
+		else
+		{
+			pisteetLumilautaText.text = "Score: " + pisteetLumilauta.ToString("F0");
+		}
+		
 		rb.constraints = RigidbodyConstraints.None;
 		rb.constraints = RigidbodyConstraints.FreezePositionX;
 		rb.constraints = RigidbodyConstraints.FreezeRotationX;
@@ -76,8 +84,15 @@ public class lumilautaScript : MonoBehaviour {
 
 		
 
-
-		pisteetLumilautaText.text = "Score: " + pisteetLumilauta.ToString("F0");
+		if(LanguageScript.Lang == 1)
+		{
+			pisteetLumilautaText.text = "Pisteet: " + pisteetLumilauta.ToString("F0");
+		}
+		else
+		{
+			pisteetLumilautaText.text = "Score: " + pisteetLumilauta.ToString("F0");
+		}
+		
 		
 		if (staticLiikutus)
 		{
@@ -144,15 +159,33 @@ public class lumilautaScript : MonoBehaviour {
 		}
 		*/
 	}
-
 	
+	public void tasoSkip()
+	{
+		kameraScript.seuraavatasoPainettu = false;
+		pelikaynnissa = false;
+		lumilautaloppu = false;
+		lumilautaPisteetPaneeli.SetActive(false);
+		lumisotaPanel.SetActive(true);
+		Debug.Log(pisteetLumilauta);
+		if (LanguageScript.Lang == 1)
+		{
+			totalPoints.text = "Kokonaispisteet: " + (kameraScript.totalPoints + pisteetLumilauta).ToString("F0");
+		}
+		else
+		{
+			totalPoints.text = "Total Points: " + (kameraScript.totalPoints + pisteetLumilauta).ToString("F0");
+		}
+
+		kameraScript.totalPoints = kameraScript.totalPoints + pisteetLumilauta;
+		Debug.Log(pelikaynnissa);
+	}
 
 	void OnTriggerExit(Collider other)
 	{
 
 		if (other.gameObject.CompareTag("lumilautaLoppuTrigger"))
 		{
-			Debug.Log("osumaa satan");
 			pelikaynnissa = false;
 			lumilautaloppu = false;
 			lumilautaPisteetPaneeli.SetActive(false);
@@ -165,12 +198,20 @@ public class lumilautaScript : MonoBehaviour {
 	
 	}
 
-	IEnumerator seuraavataso()
+	public IEnumerator seuraavataso()
 	{
 		yield return new WaitForSeconds(2f);
 		lumisotaPanel.SetActive(true);
 		Debug.Log(pisteetLumilauta);
-		totalPoints.text = "Total Points: " + (kameraScript.totalPoints + pisteetLumilauta).ToString("F2");
+		if(LanguageScript.Lang == 1)
+		{
+			totalPoints.text = "Kokonaispisteet: " + (kameraScript.totalPoints + pisteetLumilauta).ToString("F0");
+		}
+		else
+		{
+			totalPoints.text = "Total Points: " + (kameraScript.totalPoints + pisteetLumilauta).ToString("F0");
+		}
+		
 		kameraScript.totalPoints = kameraScript.totalPoints + pisteetLumilauta;
 	}
 }

@@ -26,11 +26,27 @@ public class mailScript : MonoBehaviour {
 		yield return new WaitForSeconds(0.0f);
 		if (subject.text == "" || youremail.text == "")
 		{
-			error.text = "Please fill in your email and patients name";
+			if(LanguageScript.Lang == 1)
+			{
+				error.text = "Täytä sähköpostiosoite ja henkilön nimi";
+			}
+			else
+			{
+				error.text = "Please fill in your email and patients name";
+			}
+			
 		}
 		if (!nameChosen)
 		{
-			error.text = "Please choose a patient";
+			if(LanguageScript.Lang == 1)
+			{
+				error.text = "Valitse henkilö vasemmasta listasta";
+			}
+			else
+			{
+				error.text = "Please choose a patient";
+			}
+			
 		}
 		else
 		{
@@ -63,7 +79,14 @@ public class mailScript : MonoBehaviour {
 				delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
 			
 			smtpServer.Send(mail);
-			error.text = "The mail has been sent!";
+			if(LanguageScript.Lang == 1)
+			{
+				error.text = "Sähköposti lähetetty!";
+			}
+			else
+			{
+				error.text = "The mail has been sent!";
+			}
 			nameChosen = false;
 
 			 

@@ -28,7 +28,7 @@ public class HighScoreScript : MonoBehaviour {
 
 	public void AsetaTulos()
 	{
-
+		kameraScript.totalPoints = 0;
 		Highscores.AddNewHighscore(inputfield.text, kameraScript.totalPoints);
 
 	}

@@ -15,7 +15,7 @@ public class kavelyTestiScript : MonoBehaviour {
 	bool testStarted = true;
 	bool testiKaynnissa, kierros0, kierros1, kierros2, kierros3,testinappiPainettu;
 
-	public static float testValue1, testValue2, testValue3, testValuesAdded;
+	public static float testValue1, testValue2, testValue3, testValuesAdded, testValuesBest;
 	private int testiKierros;
 
 
@@ -138,7 +138,17 @@ public class kavelyTestiScript : MonoBehaviour {
 			timer = 0;
 			Debug.Log("kolmas kierros ohi " + testValue3);
 			testValuesAdded = (testValue1 + testValue2 + testValue3) / 3;
-			Debug.Log("Keskiarvo ja lopullinen tulos: " + testValuesAdded);
+			
+			if(testValue1 < testValue2 && testValue1 < testValue3)
+			{
+				testValuesBest = testValue1;
+			}else if(testValue2 < testValue3 && testValue2 < testValue1)
+			{
+				testValuesBest = testValue2;
+			}else if(testValue3 < testValue1 && testValue3 < testValue2)
+			{
+				testValuesBest = testValue3;
+			}
 			finalTimerAjallaText.text = testValuesAdded.ToString("F2") + "s";
 			finalScreen.SetActive(true);
 			testinAikaisetTekstit.SetActive(false);
@@ -157,6 +167,7 @@ public class kavelyTestiScript : MonoBehaviour {
 		testiKierros = 1;
 		timer = 0;
 
+		testinappiPainettu = false;
 		testiIkkuna.SetActive(false);
 		finalScreen.SetActive(false);
 		playPaneeli.SetActive(true);

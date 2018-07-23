@@ -87,12 +87,12 @@ public class DATA : MonoBehaviour {
 
 		if (!File.Exists(path))
 		{
-			File.WriteAllText(path, "Time,Date" + "\n");
+			File.WriteAllText(path, "Average_Time, Best_Time, Date" + "\n");
 
 		}
 
 		//Content of file
-		string content = kavelyTestiScript.testValuesAdded.ToString("F2") + "," + System.DateTime.Now + "\n";
+		string content = kavelyTestiScript.testValuesAdded.ToString("F2") + "," + kavelyTestiScript.testValuesBest.ToString("F2") + "," + System.DateTime.Now + "\n";
 
 		//Add some text to the file
 		File.AppendAllText(path, content);

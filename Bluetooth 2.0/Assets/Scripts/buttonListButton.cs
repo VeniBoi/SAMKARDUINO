@@ -23,7 +23,15 @@ public class buttonListButton : MonoBehaviour {
 		nimi = myText.text;
 		string path = Application.persistentDataPath + "/datakansio/" + nimi + ".csv";
 		string[] lines = File.ReadAllLines(path);
-		emailnimi.text = "File chosen: " + nimi;
+		if(LanguageScript.Lang == 1)
+		{
+			emailnimi.text = "Tiedosto valittu: " + nimi;
+		}
+		else
+		{
+			emailnimi.text = "File chosen: " + nimi;
+		}
+		
 		mailScript.nameChosen = true;
 
 		foreach (string pisteet in lines)

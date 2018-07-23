@@ -22,6 +22,7 @@ public class kameraScript : MonoBehaviour
 	public GameObject restartPanel;
 	public GameObject panel2, seuraavaSceneLumilautailu;
 	public GameObject oikeaylaRestart, datanappi, visualisaatioNappiBack, visualisaatioSetit;
+	public GameObject SkipNappi1, SkipNappi2;
 
 
 	public GameObject finalPanel;
@@ -91,7 +92,15 @@ public class kameraScript : MonoBehaviour
 		kameraKohdalla = false;
 		playPainettu = false;
 		laskuri.SetActive(false);
-		lumisotaPisteetText.text = "Score: " + lumisotaPisteet.ToString();
+		if (LanguageScript.Lang == 1)
+		{
+			lumisotaPisteetText.text = "Pisteet: " + lumisotaPisteet.ToString();
+		}
+		else
+		{
+			lumisotaPisteetText.text = "Score: " + lumisotaPisteet.ToString();
+		}
+		
 
 	}
 
@@ -113,13 +122,19 @@ public class kameraScript : MonoBehaviour
 		{
 			
 			timer -= Time.deltaTime;
-			timerText.text = "Time Left: " + timer.ToString("F0");
+			if(LanguageScript.Lang == 1)
+			{
+				timerText.text = "Aika: " + timer.ToString("F0");
+			}
+			else
+			{
+				timerText.text = "Time Left: " + timer.ToString("F0");
+			}
+			
 		}
 
 		if (timer <= 0.0f && aikaLoppu == true)
 		{
-			Debug.Log("Aika loppu");
-			Debug.Log(timer);
 			totalPoints = totalPoints + lumisotaPisteet;
 			aikaLoppu = false;
 			totalPointsText.text = totalPoints.ToString("F0");
@@ -184,7 +199,18 @@ public class kameraScript : MonoBehaviour
 			aikaLoppu = true;
 			mainTimer = 30f;
 			lumisotaPisteet = 0;
+			totalPoints = 0;
+			SkipNappi1.SetActive(false);
+			SkipNappi2.SetActive(false);
+			hyppyScript.hyppyPisteet = 0;
+			if(LanguageScript.Lang == 1)
+			{
+			lumisotaPisteetText.text = "Pisteet: " + lumisotaPisteet.ToString();
+			}
+			else
+			{
 			lumisotaPisteetText.text = "Score: " + lumisotaPisteet.ToString();
+			}
 			timer = mainTimer;
 			GameObject.Find("Pelaaja").GetComponent<hyppyScript>().Restart();
 			Time.timeScale = 1f;
@@ -225,12 +251,15 @@ public class kameraScript : MonoBehaviour
 
 	public void paneelit()
 	{
+		hyppyScript.hyppyPisteet = 0;
+		lumisotaPisteet = 0;
+		totalPoints = 0;
 		playPaneeli.SetActive(false);
 		restartButton.SetActive(true);
 		panel2.SetActive(true);
 		menuNappi.SetActive(true);
 		datanappi.SetActive(false);
-		
+		SkipNappi1.SetActive(true);
 
 	}
 
@@ -256,6 +285,7 @@ public class kameraScript : MonoBehaviour
 		transform.position = new Vector3(990, 817, 35);
 		lumisotaPanel.SetActive(false);
 		lumisotaReadyPanel.SetActive(true);
+		kameraKohdalla = false;
 		
 	}
 
@@ -269,9 +299,17 @@ public class kameraScript : MonoBehaviour
 
 	public void maalitauluunOsuttu()
 	{
-		Debug.Log("Lisää niitä pisteitä boi");
+		
 		lumisotaPisteet = lumisotaPisteet + 50;
-		lumisotaPisteetText.text = "Score: " + lumisotaPisteet.ToString(); 
+		if(LanguageScript.Lang == 1)
+		{
+			lumisotaPisteetText.text = "Pisteet: " + lumisotaPisteet.ToString();
+		}
+		else
+		{
+			lumisotaPisteetText.text = "Score: " + lumisotaPisteet.ToString();
+		}
+		
 	}
 	
 	public void takaisinMenuun()

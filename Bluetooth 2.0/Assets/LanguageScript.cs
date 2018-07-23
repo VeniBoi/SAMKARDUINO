@@ -24,11 +24,23 @@ public class LanguageScript : MonoBehaviour {
 
 	//PeliScreens
 	[SerializeField]
-	Text Score1, Score2, Score3, Time;
+	Text Restart;
 
 	//DataScreen
 	[SerializeField]
-	Text InstructionsText1, InstructionsText2, InstructionsText3, InstructionsText4, InstructionsButton, KierrosText, RunningText, FinishedText, FinalTimerText, EnterNameText, EnterName, Save;
+	Text InstructionsText1, InstructionsText2, InstructionsText3, InstructionsText4, InstructionsButton, KierrosText, RunningText, FinishedText, FinalTimerText, EnterNameText, EnterName, Save, DataBack;
+
+	//DataEmail
+	[SerializeField]
+	Text EnterEmail, EnterNamePatient, EmailExample, NameExample, Send, Delete, BackBtn, FileChosen, VisualBack;
+
+	//Standup 
+	[SerializeField]
+	Text standup1, standup2, lumisotaready, lumilautaready, lumisotanappi;
+
+	//Finalscene
+	[SerializeField]
+	Text finalScore, topScores, yourName, savebutton, placeholder;
 
 	public void SetLanguage()
 	{
@@ -45,11 +57,12 @@ public class LanguageScript : MonoBehaviour {
 			Fast1.text = "Nopea";
 			Fast2.text = "Nopea";
 			Slowmotion.text = "Mäkihypyn hidastus";
-			SpawnTime.text = "Taulujen ilmestymisika";
+			SpawnTime.text = "Taulujen ilmestymisaika";
 			SnowSpeed.text = "Lumilaudan nopeus";
 			Test.text = "Mene Kokeeseen";
 			Play.text = "Mene Peliin";
 			Visualize.text = "Visualisoi istuminen";
+			Restart.text = "Alkuun";
 
 			//DataScreen
 			InstructionsText1.text = "KOKEEN OHJEET";
@@ -60,10 +73,33 @@ public class LanguageScript : MonoBehaviour {
 			KierrosText.text = "Koe Sykli no.1";
 			RunningText.text = "Käynnissä";
 			FinishedText.text = "Koe ohi!";
-			FinalTimerText.text = "Keskiverto Aika Sykleistä";
+			FinalTimerText.text = "Keskiverto Aika Kokeista";
 			EnterNameText.text = "Aseta nimi Ja Paina Tallenna";
 			Save.text = "Tallenna";
 			EnterName.text = "Kirjoita Nimi...";
+			DataBack.text = "Takaisin";
+
+			EnterEmail.text = "Anna sähköposti johon haluat tiedoston lähetettävän";
+			EnterNamePatient.text = "Anna henkilön nimi";
+			EmailExample.text = "Esimerkki@esimerkki.com";
+			NameExample.text = "Erkki Esimerkki";
+			Send.text = "Lähetä";
+			Delete.text = "Poista";
+			BackBtn.text = "Menu";
+			FileChosen.text = "Tiedosto valittu: -";
+			VisualBack.text = "Takaisin";
+
+			standup1.text = "Nouse seisomaan aloittaaksesi pelin";
+			standup2.text = "Nouse seisomaan aloittaaksesi pelin";
+			lumilautaready.text = "Seuraava Taso";
+			lumisotaready.text = "Seuraava Taso";
+			lumisotanappi.text = "Kosketa ruutua aloittaaksesi seuraava taso";
+
+			topScores.text = "Parhaat tulokset:";
+			finalScore.text = "Pisteet:";
+			yourName.text = "Kirjoita nimesi ja paina tallenna";
+			savebutton.text = "Tallenna";
+			placeholder.text = "Erkki Esimerkki";
 
 		}
 		else

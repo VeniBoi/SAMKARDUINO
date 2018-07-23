@@ -15,7 +15,7 @@ public class hyppyScript : MonoBehaviour
 	public GameObject restartButton;
 	public GameObject partikkelit;
 	public GameObject seuraavaTasoPanel;
-	public GameObject panel2;
+	public GameObject panel2, skipNappi1, skipNappi2;
 	public Text totalpoints;
 
 
@@ -72,7 +72,6 @@ public class hyppyScript : MonoBehaviour
 
 		if (Physics.Raycast(downray, out hit, 10) && kääntöKohtaYlitetty == true && animaatioBool == true)
 		{
-			Debug.Log("Nyt lähtee laskeutumisanimaatio käyntiin");
 			AnimaatioScript.animaatio5 = true;
 			animaatioBool = false;
 		}
@@ -116,7 +115,15 @@ public class hyppyScript : MonoBehaviour
 		if(onLaskeuduttu == false)
 		{
 			hyppyPisteet = rb.position.z - coordinateF;
-			hyppyPisteetText.text = "Score: " + hyppyPisteet.ToString("F0");
+			if(LanguageScript.Lang == 1)
+			{
+				hyppyPisteetText.text = "Pisteet: " + hyppyPisteet.ToString("F0");
+			}
+			else
+			{
+				hyppyPisteetText.text = "Score: " + hyppyPisteet.ToString("F0");
+			}
+	
 			//paneeli.SetActive(true);
 			restartBool = false;
 		}
@@ -148,7 +155,16 @@ public class hyppyScript : MonoBehaviour
 		paneeli.SetActive(true);
 		restartButton.SetActive(false);
 		hyppyPisteet = 0;
-		hyppyPisteetText.text = "Score: " + hyppyPisteet.ToString("F0");
+
+		if(LanguageScript.Lang == 1)
+		{
+			hyppyPisteetText.text = "Pisteet: " + hyppyPisteet.ToString("F0");
+		}
+		else
+		{
+			hyppyPisteetText.text = "Score: " + hyppyPisteet.ToString("F0");
+		}
+		
 		AnimaatioScript.animaatio1 = false;
 		AnimaatioScript.animaatio2 = true;
 		AnimaatioScript.animaatio3 = false;
@@ -230,8 +246,7 @@ public class hyppyScript : MonoBehaviour
 		{
 			Debug.Log("Pysähdytään!");
 			AnimaatioScript.animaatio7 = true;
-			
-
+			skipNappi1.SetActive(false);
 			rb.AddForce(-Vector3.forward * 5 * 5);
 			//rb.constraints = RigidbodyConstraints.FreezeRotationZ;
 			rb.constraints = RigidbodyConstraints.FreezePositionX;
@@ -245,7 +260,15 @@ public class hyppyScript : MonoBehaviour
 			StartCoroutine(seuraavataso());
 			int iValue = Mathf.RoundToInt(hyppyPisteet);
 			kameraScript.totalPoints = kameraScript.totalPoints + iValue;
-			totalpoints.text = "Total Points: " + kameraScript.totalPoints.ToString("F0");
+			if(LanguageScript.Lang == 1)
+			{
+				totalpoints.text = "Kokonaispisteet: " + kameraScript.totalPoints.ToString("F0");
+			}
+			else
+			{
+				totalpoints.text = "Total Points: " + kameraScript.totalPoints.ToString("F0");
+			}
+			
 			Debug.Log(kameraScript.totalPoints);
 			rb.AddForce(-Vector3.forward * 30 * 30);
 			
