@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class kavelyTestiScript : MonoBehaviour {
 
-	public Text kierrosText, aikaText, initiateText, finishedText, finalTimerAjallaText, runningText, readyToGoText, standupText;
+	public Text kierrosText, aikaText, initiateText, finishedText, finalTimerAjallaText,FinalTimerAjallaBestText ,runningText, readyToGoText, standupText;
 	public GameObject testiIkkuna, playPaneeli, testinAikaisetTekstit, alkuTekstit, runningimage;
 	public GameObject finalScreen;
 	public float timer;
@@ -69,7 +69,7 @@ public class kavelyTestiScript : MonoBehaviour {
 			
 		}
 
-		if (testiKaynnissa && canCount && testiKierros == 1 && /*Input.GetKeyDown("a")*/ BasicDemo.S3 > 30 && BasicDemo.S1 > 30 )
+		if (testiKaynnissa && canCount && testiKierros == 1 && /*Input.GetKeyDown("a")*/ BasicDemo.S7 > 30 && BasicDemo.S6 > 30 )
 		{
 			runningimage.SetActive(false);
 			runningText.enabled = false;
@@ -100,7 +100,7 @@ public class kavelyTestiScript : MonoBehaviour {
 			testinappiPainettu = true;
 		}
 
-		if (testiKaynnissa && canCount && testiKierros == 2 && /*Input.GetKeyDown("a")*/ BasicDemo.S3 > 30 && BasicDemo.S1 > 30)
+		if (testiKaynnissa && canCount && testiKierros == 2 && /*Input.GetKeyDown("a")*/ BasicDemo.S7 > 30 && BasicDemo.S6 > 30)
 		{
 			runningimage.SetActive(false);
 			runningText.enabled = false;
@@ -131,31 +131,28 @@ public class kavelyTestiScript : MonoBehaviour {
 			testinappiPainettu = true;
 		}
 
-		if (testiKaynnissa && canCount && testiKierros == 3 && /*Input.GetKeyDown("a")*/ BasicDemo.S3 > 30 && BasicDemo.S1 > 30)
+		if (testiKaynnissa && canCount && testiKierros == 3 && /*Input.GetKeyDown("a")*/ BasicDemo.S7 > 30 && BasicDemo.S6 > 30)
 		{
 			canCount = false;
 			testValue3 = timer;
 			timer = 0;
 			Debug.Log("kolmas kierros ohi " + testValue3);
 			testValuesAdded = (testValue1 + testValue2 + testValue3) / 3;
-			
-			if(testValue1 < testValue2 && testValue1 < testValue3)
-			{
-				testValuesBest = testValue1;
-			}else if(testValue2 < testValue3 && testValue2 < testValue1)
-			{
-				testValuesBest = testValue2;
-			}else if(testValue3 < testValue1 && testValue3 < testValue2)
-			{
-				testValuesBest = testValue3;
-			}
 			finalTimerAjallaText.text = testValuesAdded.ToString("F2") + "s";
+			FinalTimerAjallaBestText.text = LaskeParas(testValue1, testValue2, testValue3).ToString("F2") + "s";
 			finalScreen.SetActive(true);
 			testinAikaisetTekstit.SetActive(false);
 			testiKaynnissa = false;
 			testinappiPainettu = true;
+			testValuesBest = LaskeParas(testValue1, testValue2, testValue3);
 		}
 
+	}
+
+	private float LaskeParas(float Value1, float Value2, float Value3)
+	{
+		float Tulos = Mathf.Min(Value1, Value2, Value3);
+		return Tulos;
 	}
 
 	public void takaisinAlkuun()

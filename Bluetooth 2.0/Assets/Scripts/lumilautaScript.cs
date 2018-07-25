@@ -10,7 +10,7 @@ public class lumilautaScript : MonoBehaviour {
 	public Text totalPoints;
 	public GameObject standupPanel;
 	public GameObject lumisotaPanel;
-	public GameObject lumilautaPisteetPaneeli;
+	public GameObject lumilautaPisteetPaneeli, Skip2;
 	public Rigidbody rb;
 	public float coordinateF;
 	public bool pelikaynnissa;
@@ -178,7 +178,6 @@ public class lumilautaScript : MonoBehaviour {
 		}
 
 		kameraScript.totalPoints = kameraScript.totalPoints + pisteetLumilauta;
-		Debug.Log(pelikaynnissa);
 	}
 
 	void OnTriggerExit(Collider other)
@@ -186,6 +185,7 @@ public class lumilautaScript : MonoBehaviour {
 
 		if (other.gameObject.CompareTag("lumilautaLoppuTrigger"))
 		{
+			Skip2.SetActive(false);
 			pelikaynnissa = false;
 			lumilautaloppu = false;
 			lumilautaPisteetPaneeli.SetActive(false);
@@ -200,7 +200,7 @@ public class lumilautaScript : MonoBehaviour {
 
 	public IEnumerator seuraavataso()
 	{
-		yield return new WaitForSeconds(2f);
+		yield return new WaitForSeconds(1f);
 		lumisotaPanel.SetActive(true);
 		Debug.Log(pisteetLumilauta);
 		if(LanguageScript.Lang == 1)

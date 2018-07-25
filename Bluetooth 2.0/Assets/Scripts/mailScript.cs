@@ -88,7 +88,8 @@ public class mailScript : MonoBehaviour {
 				error.text = "The mail has been sent!";
 			}
 			nameChosen = false;
-
+			youremail.text = "";
+			subject.text = "";
 			 
 		}
 	}

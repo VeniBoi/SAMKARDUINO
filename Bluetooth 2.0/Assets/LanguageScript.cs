@@ -10,7 +10,7 @@ public class LanguageScript : MonoBehaviour {
 	//If Lang=0 -> English
 	//If Lang=1 -> Finnish
 
-	//SearcMenu
+	//SearchMenu
 	[SerializeField]
 	Text Search, NoDevices;
 
@@ -40,7 +40,11 @@ public class LanguageScript : MonoBehaviour {
 
 	//Finalscene
 	[SerializeField]
-	Text finalScore, topScores, yourName, savebutton, placeholder;
+	Text finalScore, topScores, yourName, savebutton, placeholder, Skip1, Skip2;
+
+	//Walkingscript
+	[SerializeField]
+	Text BestTimeText;
 
 	public void SetLanguage()
 	{
@@ -100,6 +104,10 @@ public class LanguageScript : MonoBehaviour {
 			yourName.text = "Kirjoita nimesi ja paina tallenna";
 			savebutton.text = "Tallenna";
 			placeholder.text = "Erkki Esimerkki";
+			Skip1.text = "Ohita";
+			Skip2.text = "Ohita";
+
+			BestTimeText.text = "Paras Aika Kokeista";
 
 		}
 		else

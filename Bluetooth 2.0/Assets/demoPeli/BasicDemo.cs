@@ -201,6 +201,7 @@ public class BasicDemo : MonoBehaviour {
 				mappedValue6 = (((S6 - 0) * (255 - 0)) / (99 - 0)) + 0;
 				mappedValue7 = (((S7 - 0) * (255 - 0)) / (99 - 0)) + 0;
 				mappedValue8 = (((S8 - 0) * (255 - 0)) / (99 - 0)) + 0;
+				
 
 				setString();
 				

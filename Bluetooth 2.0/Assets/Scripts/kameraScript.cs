@@ -71,13 +71,20 @@ public class kameraScript : MonoBehaviour
 		spawnTime = newSpawnTime;
 	}
 
+	public void aloitaSpawnaus()
+	{
+		spawnTime = 2f;
+		InvokeRepeating("maalitauluSpawn", 0.1f, spawnTime);
+	}
+
+	public void lopetaSpawnaus()
+	{
+		CancelInvoke();
+	}
 
 	// Use this for initialization
 	void Start()
 	{
-		spawnTime = 2f;
-		InvokeRepeating("maalitauluSpawn", 0.5f, spawnTime);
-
 		
 		timer = mainTimer;
 		aikaLoppu = true;
@@ -141,7 +148,7 @@ public class kameraScript : MonoBehaviour
 			finalPanel.SetActive(true);
 			lumisotaPeli.SetActive(false);
 			lumisotaPanel.SetActive(false);
-			
+			lopetaSpawnaus();
 		}
 
 	
