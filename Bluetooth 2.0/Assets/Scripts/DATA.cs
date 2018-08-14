@@ -63,7 +63,6 @@ public class DATA : MonoBehaviour {
 
 		datanappi.SetActive(true);
 		backNappi.SetActive(false);
-		restartButton.SetActive(true);
 		playPanel.SetActive(true);
 		datapanel.SetActive(false);
 		
@@ -103,7 +102,6 @@ public class DATA : MonoBehaviour {
 		input.text = "";
 		finalPanel.SetActive(false);
 		playPanel.SetActive(true);
-		restartButton.SetActive(true);
 		Debug.Log(path);
 		datanappi.SetActive(true);
 	}

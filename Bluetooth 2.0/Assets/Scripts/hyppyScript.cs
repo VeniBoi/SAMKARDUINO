@@ -32,6 +32,8 @@ public class hyppyScript : MonoBehaviour
 
 	public Transform player;
 
+	public AudioSource Applause;
+
 	public Vector3 velocity;
 	public Vector3 targetVelocity;
 
@@ -252,6 +254,7 @@ public class hyppyScript : MonoBehaviour
 			rb.constraints = RigidbodyConstraints.FreezePositionX;
 			GameObject.Find("lasku").GetComponent<materiaaliScript>().materiaaliVaihto();
 			StartCoroutine(partikkelitNum());
+			Applause.Play();
 
 		}
 

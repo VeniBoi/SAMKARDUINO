@@ -24,6 +24,8 @@ public class kameraScript : MonoBehaviour
 	public GameObject oikeaylaRestart, datanappi, visualisaatioNappiBack, visualisaatioSetit;
 	public GameObject SkipNappi1, SkipNappi2;
 
+	public AudioSource applause;
+
 
 	public GameObject finalPanel;
 	public Text totalPointsText;
@@ -73,7 +75,6 @@ public class kameraScript : MonoBehaviour
 
 	public void aloitaSpawnaus()
 	{
-		spawnTime = 2f;
 		InvokeRepeating("maalitauluSpawn", 0.1f, spawnTime);
 	}
 
@@ -85,7 +86,7 @@ public class kameraScript : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		
+		spawnTime = 1f;
 		timer = mainTimer;
 		aikaLoppu = true;
 		canCount = false;
@@ -149,6 +150,7 @@ public class kameraScript : MonoBehaviour
 			lumisotaPeli.SetActive(false);
 			lumisotaPanel.SetActive(false);
 			lopetaSpawnaus();
+			applause.Play();
 		}
 
 	
@@ -197,20 +199,22 @@ public class kameraScript : MonoBehaviour
 
 	public void restartYes()
 	{
-			lumilautaKohdalla = false;
-			kameraKohdalla = false;
-			transform.position = new Vector3(990, 817, 35);
-			finalPanel.SetActive(false);
-			playPaneeli.SetActive(true);
-			canCount = false;
-			aikaLoppu = true;
-			mainTimer = 30f;
-			lumisotaPisteet = 0;
-			totalPoints = 0;
-			SkipNappi1.SetActive(false);
-			SkipNappi2.SetActive(false);
-			hyppyScript.hyppyPisteet = 0;
-			if(LanguageScript.Lang == 1)
+		lumilautaKohdalla = false;
+		kameraKohdalla = false;
+		transform.position = new Vector3(990, 817, 35);
+		finalPanel.SetActive(false);
+		playPaneeli.SetActive(true);
+		lumisotaReadyPanel.SetActive(false);
+		lumisotaPanel.SetActive(false);
+		canCount = false;
+		aikaLoppu = true;
+		mainTimer = 30f;
+		lumisotaPisteet = 0;
+		totalPoints = 0;
+		SkipNappi1.SetActive(false);
+		SkipNappi2.SetActive(false);
+		hyppyScript.hyppyPisteet = 0;
+		if(LanguageScript.Lang == 1)
 			{
 			lumisotaPisteetText.text = "Pisteet: " + lumisotaPisteet.ToString();
 			}

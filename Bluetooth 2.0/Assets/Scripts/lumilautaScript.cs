@@ -18,6 +18,8 @@ public class lumilautaScript : MonoBehaviour {
 	public bool staticLiikutus2;
 	public Vector3 paikka;
 
+	public AudioSource applause;
+
 	public float vastaVoima;
 
 	//public Quaternion vasen = Quaternion.Euler(20.85f, 0, 20);
@@ -163,6 +165,7 @@ public class lumilautaScript : MonoBehaviour {
 	public void tasoSkip()
 	{
 		kameraScript.seuraavatasoPainettu = false;
+		standupPanel.SetActive(false);
 		pelikaynnissa = false;
 		lumilautaloppu = false;
 		lumilautaPisteetPaneeli.SetActive(false);
@@ -185,6 +188,7 @@ public class lumilautaScript : MonoBehaviour {
 
 		if (other.gameObject.CompareTag("lumilautaLoppuTrigger"))
 		{
+			applause.Play();
 			Skip2.SetActive(false);
 			pelikaynnissa = false;
 			lumilautaloppu = false;
