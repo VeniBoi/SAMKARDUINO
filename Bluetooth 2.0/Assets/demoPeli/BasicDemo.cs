@@ -7,7 +7,7 @@ using TechTweaking.Bluetooth;
 public class BasicDemo : MonoBehaviour {
 
 	static public bool onLiitytty;
-
+	
 	public Text Sensori0;
 	public Text Sensori1;
 	public Text Sensori2;
@@ -203,13 +203,13 @@ public class BasicDemo : MonoBehaviour {
 				mappedValue8 = (((S8 - 0) * (255 - 0)) / (99 - 0)) + 0;
 				
 
-				setString();
+				//setString();
 				
 			}		
 		}
 	}
 
-	void setString()
+	/*void setString()
 	{
 		
 		Sensori0.text = "Sensori0: " + S0.ToString();
@@ -222,7 +222,7 @@ public class BasicDemo : MonoBehaviour {
 		Sensori7.text = "Sensori7: " + S7.ToString();
 		Sensori8.text = "Sensori8: " + S8.ToString();
 	}
-
+	*/
 
 	public void Sammutus()
 	{
@@ -258,6 +258,7 @@ public class BasicDemo : MonoBehaviour {
 
 	public void playPaneeliNakyy()
 	{
+		GetComponent<BtDiscovery>().enabled = false;
 		connectPaneeli.SetActive(false);
 		playPaneeli.SetActive(true);
 	}

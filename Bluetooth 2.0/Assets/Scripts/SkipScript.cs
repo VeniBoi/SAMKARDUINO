@@ -5,9 +5,12 @@ using UnityEngine;
 public class SkipScript : MonoBehaviour {
 
 	public GameObject makihyppaaja, lumilautailija, skipNappi1, skipNappi2;
+	public GameObject makihyppySetit, lumilautaSetit;
 
 	public void Skippaa1()
 	{
+		lumilautaSetit.SetActive(true);
+		makihyppySetit.SetActive(false);
 		kameraScript.pelaajaPaikalla = false;
 		makihyppaaja.GetComponent<Rigidbody>().isKinematic = true;
 		makihyppaaja.GetComponent<hyppyScript>().panel2.SetActive(false);

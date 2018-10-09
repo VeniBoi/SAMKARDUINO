@@ -13,7 +13,7 @@ public class hyppyScript : MonoBehaviour
 	static public float hyppyPisteet;
 	public Text hyppyPisteetText;
 	public GameObject restartButton;
-	public GameObject partikkelit;
+	public GameObject partikkelit, lumilautailuSetit;
 	public GameObject seuraavaTasoPanel;
 	public GameObject panel2, skipNappi1, skipNappi2;
 	public Text totalpoints;
@@ -83,7 +83,7 @@ public class hyppyScript : MonoBehaviour
 
 		thrust = rb.position.z - coordinateF;
 
-		if (kameraScript.playPainettu == true && kameraScript.pelaajaPaikalla == true && BasicDemo.S0 == 0 && BasicDemo.S1 == 0 && BasicDemo.S2 == 0 && BasicDemo.S3 == 0 && BasicDemo.S4 == 0 && BasicDemo.S5 == 0 && BasicDemo.S6 == 0 && BasicDemo.S7 == 0 && BasicDemo.S8 == 0)
+		if (kameraScript.playPainettu == true && kameraScript.pelaajaPaikalla == true && BasicDemo.S0 < 50 && BasicDemo.S1 < 50 && BasicDemo.S2 < 50 && BasicDemo.S3 < 50 && BasicDemo.S4 < 50 && BasicDemo.S5 < 50 && BasicDemo.S6 < 50 && BasicDemo.S7 < 50 && BasicDemo.S8 < 50)
 		{
 			GetComponent<Rigidbody>().isKinematic = false;
 			paneeli.SetActive(false);
@@ -98,7 +98,7 @@ public class hyppyScript : MonoBehaviour
 
 
 
-		if /*(Input.GetKeyDown("space") && hyppyAlueella == true)*/ (BasicDemo.S0 < 30 && BasicDemo.S1 < 30 && BasicDemo.S2 < 30 && BasicDemo.S3 < 30 && BasicDemo.S4 < 30 && BasicDemo.S5 < 30 && BasicDemo.S6 < 30 && BasicDemo.S7 < 30 && BasicDemo.S8 < 30 && hyppyAlueella == true)
+		if /*(Input.GetKeyDown("space") && hyppyAlueella == true)*/ (BasicDemo.S0 < 50 && BasicDemo.S1 < 50 && BasicDemo.S2 < 50 && BasicDemo.S3 < 50 && BasicDemo.S4 < 50 && BasicDemo.S5 < 50 && BasicDemo.S6 < 50 && BasicDemo.S7 < 50 && BasicDemo.S8 < 50 && hyppyAlueella == true)
 		{
 
 			//rb.AddForce(Vector3.forward * thrust * 2);
@@ -255,6 +255,7 @@ public class hyppyScript : MonoBehaviour
 			GameObject.Find("lasku").GetComponent<materiaaliScript>().materiaaliVaihto();
 			StartCoroutine(partikkelitNum());
 			Applause.Play();
+			lumilautailuSetit.SetActive(true);
 
 		}
 

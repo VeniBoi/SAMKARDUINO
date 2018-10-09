@@ -74,7 +74,7 @@ public class LanguageScript : MonoBehaviour {
 
 			//DataScreen
 			InstructionsText1.text = "KOKEEN OHJEET";
-			InstructionsText2.text = "-Nouse ylös tuolista, kävele merkin ympäri\n (asetetaan 6 metrin päähän) ja istu takaisin alas.\n\n -Toistetaan 3 kertaa.\n\n -Joka kerralla koe aloitetaan nousemalla seisomaan.\n\n -Tulokset näyetään kokeen loputtua.\n\n -Näet näytöltä kun koe on ohi.\n\n !!HUOM!!\n\n HENKIÖN TARVITSEE ISTUA TUOLISSA KUN KOE ALOITETAAN!";
+			InstructionsText2.text = "-Nouse ylös tuolista, kävele merkin ympäri\n (asetetaan 6 metrin päähän) ja istu takaisin alas.\n\n -Toistetaan 3 kertaa.\n\n -Joka kerralla koe aloitetaan nousemalla seisomaan.\n\n -Tulokset näyetään kokeen loputtua.\n\n -Näet näytöltä kun koe on ohi.\n\n !!HUOM!!\n\n HENKILÖN TARVITSEE ISTUA TUOLISSA KUN KOE ALOITETAAN!";
 			InstructionsText3.text = "Nouse seisomaan aloittaaksesi kokeen.";
 			InstructionsText4.text = "Valmis";
 			InstructionsButton.text = "Valmis?";

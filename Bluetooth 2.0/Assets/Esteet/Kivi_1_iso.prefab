@@ -23,9 +23,11 @@ GameObject:
   - component: {fileID: 23641616704085730}
   - component: {fileID: 95270778710083736}
   - component: {fileID: 65165163447315218}
+  - component: {fileID: 114523762448740562}
+  - component: {fileID: 65060941989268650}
   m_Layer: 0
   m_Name: Kivi_1_iso
-  m_TagString: Untagged
+  m_TagString: este
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -37,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1158861314861232}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1273.1, y: 504.91, z: -950.03}
+  m_LocalPosition: {x: -1225.8018, y: 590.6582, z: -1177.2479}
   m_LocalScale: {x: 1.7981253, y: 1.798125, z: 1.798125}
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,6 +86,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1158861314861232}
   m_Mesh: {fileID: 4300000, guid: 50adebca890d52b4b93f13280427a26c, type: 3}
+--- !u!65 &65060941989268650
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1158861314861232}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.3664224, y: 2.8031566, z: 1.6089374}
+  m_Center: {x: 0.18976805, y: 0.08190002, z: 0.18102054}
 --- !u!65 &65165163447315218
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -113,3 +127,14 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114523762448740562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1158861314861232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d60a755df96954b82127af97b457d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

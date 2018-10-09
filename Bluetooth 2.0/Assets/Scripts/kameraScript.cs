@@ -24,11 +24,14 @@ public class kameraScript : MonoBehaviour
 	public GameObject oikeaylaRestart, datanappi, visualisaatioNappiBack, visualisaatioSetit;
 	public GameObject SkipNappi1, SkipNappi2;
 
+	public GameObject VisualisaatioNapit, MakiHyppySetit, lumilautaSetit;
+
 	public AudioSource applause;
 
 
 	public GameObject finalPanel;
 	public Text totalPointsText;
+
 
 	static public int totalPoints;
 
@@ -143,6 +146,8 @@ public class kameraScript : MonoBehaviour
 
 		if (timer <= 0.0f && aikaLoppu == true)
 		{
+			//MakiHyppySetit.SetActive(true);
+			//lumilautaSetit.SetActive(true);
 			totalPoints = totalPoints + lumisotaPisteet;
 			aikaLoppu = false;
 			totalPointsText.text = totalPoints.ToString("F0");
@@ -210,9 +215,10 @@ public class kameraScript : MonoBehaviour
 		aikaLoppu = true;
 		mainTimer = 30f;
 		lumisotaPisteet = 0;
-		totalPoints = 0;
 		SkipNappi1.SetActive(false);
 		SkipNappi2.SetActive(false);
+		MakiHyppySetit.SetActive(true);
+		lumilautaSetit.SetActive(true);
 		hyppyScript.hyppyPisteet = 0;
 		if(LanguageScript.Lang == 1)
 			{
@@ -271,7 +277,7 @@ public class kameraScript : MonoBehaviour
 		menuNappi.SetActive(true);
 		datanappi.SetActive(false);
 		SkipNappi1.SetActive(true);
-
+		MakiHyppySetit.SetActive(true);
 	}
 
 
@@ -306,6 +312,7 @@ public class kameraScript : MonoBehaviour
 		lumisotaPeli.SetActive(true);
 		canCount = true;
 		oikeaylaRestart.SetActive(false);
+		lumilautaSetit.SetActive(false);
 	}
 
 	public void maalitauluunOsuttu()
@@ -339,6 +346,7 @@ public class kameraScript : MonoBehaviour
 		visualisaatioNappiBack.SetActive(true);
 		datanappi.SetActive(false);
 		visualisaatioSetit.SetActive(true);
+		VisualisaatioNapit.SetActive(true);
 	}
 
 	public void PoisVisualisaatiosta()
@@ -349,6 +357,7 @@ public class kameraScript : MonoBehaviour
 		visualisaatioNappiBack.SetActive(false);
 		datanappi.SetActive(true);
 		visualisaatioSetit.SetActive(false);
+		VisualisaatioNapit.SetActive(false);
 	}
 
 	IEnumerator Transition()

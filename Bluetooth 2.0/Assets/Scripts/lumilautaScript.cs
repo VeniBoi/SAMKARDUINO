@@ -9,7 +9,7 @@ public class lumilautaScript : MonoBehaviour {
 	public Text pisteetLumilautaText;
 	public Text totalPoints;
 	public GameObject standupPanel;
-	public GameObject lumisotaPanel;
+	public GameObject lumisotaPanel, makihyppySetit;
 	public GameObject lumilautaPisteetPaneeli, Skip2;
 	public Rigidbody rb;
 	public float coordinateF;
@@ -35,7 +35,7 @@ public class lumilautaScript : MonoBehaviour {
 		GetComponent<Rigidbody>().isKinematic = true;
 		//transform.eulerAngles = new Vector3(16.548f, 0f, 0f);
 		transform.position = paikka;
-		pisteetLumilauta = 0;
+
 		if(LanguageScript.Lang == 1)
 		{
 			pisteetLumilautaText.text = "Pisteet: " + pisteetLumilauta.ToString("F0");
@@ -109,13 +109,13 @@ public class lumilautaScript : MonoBehaviour {
 		
 
 
-		if (kameraScript.seuraavatasoPainettu == true && BasicDemo.S0 == 0 && BasicDemo.S1 == 0 && BasicDemo.S2 == 0 && BasicDemo.S3 == 0 && BasicDemo.S4 == 0 && BasicDemo.S5 == 0 && BasicDemo.S6 == 0 && BasicDemo.S7 == 0 && BasicDemo.S8 == 0)
+		if (kameraScript.seuraavatasoPainettu == true && BasicDemo.S0 < 50 && BasicDemo.S1 < 50 && BasicDemo.S2 < 50 && BasicDemo.S3 < 50 && BasicDemo.S4 < 50 && BasicDemo.S5 < 50 && BasicDemo.S6 < 50 && BasicDemo.S7 < 50 && BasicDemo.S8 < 50)
 		{
 			standupPanel.SetActive(false);
 			GetComponent<Rigidbody>().isKinematic = false;//----------------------------------------------------------------------------
 			pelikaynnissa = true;
 			staticLiikutus = true;
-			
+			makihyppySetit.SetActive(false);
 		}
 
 		if (BasicDemo.S3 < 80 && pelikaynnissa == true) /*(pelikaynnissa == true && Input.GetKey("a"))*/ 
@@ -199,7 +199,6 @@ public class lumilautaScript : MonoBehaviour {
 			
 		}
 
-	
 	}
 
 	public IEnumerator seuraavataso()
